@@ -1,6 +1,6 @@
 # Decision Maker
 
-### Sick of all the choices that apps keep giving you?
+### Sick of all the choices and recommendations that apps keep giving you?
 ### Don't worry. Decision Maker is here for you
 
 ## Architecture
