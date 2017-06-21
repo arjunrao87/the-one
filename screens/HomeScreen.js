@@ -13,8 +13,9 @@ import {
   Button,
   Alert,
 } from 'react-native';
-
 import { MonoText } from '../components/StyledText';
+
+var requests = require('../requests/requests');
 
 export default class HomeScreen extends React.Component {
   static route = {
@@ -27,7 +28,6 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Select your activity of choice
         </Text>
         <Button
           onPress={this.getFoodOption}
@@ -39,29 +39,23 @@ export default class HomeScreen extends React.Component {
           onPress={this.getCafeOption}
           title="Cafe"/>
         <Button
-          onPress={this.getFunOption}
-          title="Fun"/>
-        <Button
           onPress={this.getRandomOption}
-          title="CHOOSE FOR ME"/>
+          title="Random"/>
       </View>
     );
   }
 
   getFoodOption = () => {
-    Alert.alert('getFoodOption has been pressed!');
+    requests.getFoodOptionAsync(1,2,3);
   };
   getDrinksOption = () => {
-    Alert.alert('getDrinksOption has been pressed!');
+    requests.getDrinksOptionAsync(1,2,3);
   };
   getCafeOption = () => {
-    Alert.alert('getCafeOption has been pressed!');
-  };
-  getFunOption = () => {
-    Alert.alert('getFunOption has been pressed!');
+    requests.getCafeOptionAsync(1,2,3);
   };
   getRandomOption = () => {
-    Alert.alert('getRandomOption has been pressed!');
+    requests.getRandomOptionAsync(1,2,3);
   };
 }
 
