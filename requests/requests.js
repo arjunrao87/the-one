@@ -81,7 +81,7 @@ function makePostRequest(url,distance,cost,rating){
 
 function makeGetRequest(type,distance,cost,rating){
   console.log( "Making get request for type = " + type );
-  var response = fetch('http://localhost:3000/' + type);
+  var response = fetch(baseURL + type);
   response.then( (response) => {
     var resp = JSON.stringify( response);
     console.log(resp);
