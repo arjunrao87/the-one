@@ -59,26 +59,6 @@ export default class HomeScreen extends React.Component {
   };
 }
 
-class SliderExample extends React.Component {
-  static defaultProps = {
-    value: 0,
-  };
-
-  state = {
-    value: this.props.value,
-  };
-
-  render() {
-    return (
-      <View>
-        <Text style={styles.text} >
-          {this.state.value && +this.state.value.toFixed(3)}
-        </Text>
-      </View>
-    );
-  }
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

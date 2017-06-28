@@ -6,8 +6,8 @@ var baseURL = 'http://localhost:3000/';
 
 exports.getFoodOptionAsync = function getFoodOptionAsync(distance, cost, rating) {
   makePostRequest(baseURL + 'food', distance, cost, rating)
-  .then((responseJson) => {
-    console.log( "Received response for food call" );
+  .then((response) => {
+    getVenue(response);
   })
   .catch((error) => {
     console.error(error);
@@ -15,9 +15,9 @@ exports.getFoodOptionAsync = function getFoodOptionAsync(distance, cost, rating)
 }
 
 exports.getDrinksOptionAsync = function getDrinksOptionAsync(distance, cost, rating) {
-  return makePostRequest(baseURL + 'drinks', distance, cost, rating)
-  .then((responseJson) => {
-    console.log( "Received response for drinks call" );
+  makePostRequest(baseURL + 'drinks', distance, cost, rating)
+  .then((response) => {
+    getVenue(response);
   })
   .catch((error) => {
     console.error(error);
@@ -25,9 +25,9 @@ exports.getDrinksOptionAsync = function getDrinksOptionAsync(distance, cost, rat
 }
 
 exports.getCafeOptionAsync = function getCafeOptionAsync(distance, cost, rating) {
-  return makePostRequest(baseURL + 'cafe', distance, cost, rating)
-  .then((responseJson) => {
-    console.log( "Received response for cafe call" );
+  makePostRequest(baseURL + 'cafe', distance, cost, rating)
+  .then((response) => {
+    getVenue(response);
   })
   .catch((error) => {
     console.error(error);
@@ -35,9 +35,9 @@ exports.getCafeOptionAsync = function getCafeOptionAsync(distance, cost, rating)
 }
 
 exports.getRandomOptionAsync = function getRandomOptionAsync(distance, cost, rating) {
-  return makePostRequest(baseURL + 'random', distance, cost, rating)
-  .then((responseJson) => {
-    console.log( "Received response for random call" );
+  makePostRequest(baseURL + 'random', distance, cost, rating)
+  .then((response) => {
+    getVenue(response);
   })
   .catch((error) => {
     console.error(error);
@@ -45,6 +45,20 @@ exports.getRandomOptionAsync = function getRandomOptionAsync(distance, cost, rat
 }
 
 // ----------------------------- Request Helpers ----------------------------//
+
+function getVenue( response ){
+  var body = JSON.parse(response)._bodyInit;
+  var venues = JSON.parse( body );
+  var venue = getOneVenue( venues );
+  return venue;
+}
+
+function getOneVenue( venues ){
+  var item = Math.floor(Math.random()*venues.length);
+  var venue = venues[item];
+  console.log( "Choosing item # = " + item + ", value = " +  venue.name );
+  return venue;
+}
 
 function makePostRequest(url,distance,cost,rating){
   console.log( "Making request to " + url );
@@ -69,9 +83,8 @@ function makeGetRequest(type,distance,cost,rating){
   console.log( "Making get request for type = " + type );
   var response = fetch('http://localhost:3000/' + type);
   response.then( (response) => {
-    console.log( "Made the request!!!!");
     var resp = JSON.stringify( response);
-    console.log( resp);
+    console.log(resp);
     return( resp );
   });
 }
