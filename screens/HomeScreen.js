@@ -12,39 +12,42 @@ import {
   View,
   Button,
   Alert,
+  ListView,
 } from 'react-native';
-import { MonoText } from '../components/StyledText';
 
 var requests = require('../requests/requests');
 
 export default class HomeScreen extends React.Component {
-  static route = {
-    navigationBar: {
-      visible: false,
-    },
-  };
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-        </Text>
-        <Button
-          onPress={this.getFoodOption}
-          title="Food"/>
-        <Button
-          onPress={this.getDrinksOption}
-          title="Drinks"/>
-        <Button
-          onPress={this.getCafeOption}
-          title="Cafe"/>
-        <Button
-          onPress={this.getRandomOption}
-          title="Random"/>
+      <View style={{flex: 1}}>
+        <View style={{flex: 6, backgroundColor: 'powderblue'}}>
+          <View style={{flex: 1,backgroundColor: 'bisque'}}>
+            <Text style={styles.headerText}>Decision Maker</Text>
+          </View>
+          <View style={{flex: 6,backgroundColor: 'aliceblue'}}>
+            <Text></Text>
+          </View>
+        </View>
+        <View style={{flex: 5}}>
+          <TouchableHighlight underlayColor='chartreuse' style={{flex: 1, backgroundColor: 'plum'}} onPress={this.getCafeOption}>
+            <Text style={styles.optionText}>Cafes</Text>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor='chartreuse' style={{flex: 1, backgroundColor: 'salmon'}}>
+            <Text style={styles.optionText}>Random</Text>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor='chartreuse' style={{flex: 1, backgroundColor: 'dodgerblue'}}>
+            <Text style={styles.optionText}>Food</Text>
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor='chartreuse' style={{flex: 1, backgroundColor: 'deeppink'}}>
+            <Text style={styles.optionText}>Drinks</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
-
+  
   getFoodOption = () => {
     requests.getFoodOptionAsync(1,2,3);
   };
@@ -60,6 +63,28 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  headerText: {
+    fontSize: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontFamily: 'Iowan Old Style',
+  },
+  optionText: {
+    fontSize: 45,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontFamily: 'Iowan Old Style',
+  },
+  resultContainer: {
+    flex: 2,
+    backgroundColor: '#BBBBBB',
+  },
+  optionsContainer: {
+    flex: 3,
+    backgroundColor: '#000000',
+  },
   container: {
     flex: 1,
     alignItems: 'center',

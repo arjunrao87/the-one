@@ -4,8 +4,8 @@
   "description": "Decision Maker",
   "author": "Arjun Rao",
   "main": "main.js",
-  "license":"MIT",
-  "repository":"https://github.com/arjunrao87/decision-maker.git",
+  "license": "MIT",
+  "repository": "https://github.com/arjunrao87/decision-maker.git",
   "scripts": {
     "test": "node node_modules/jest/bin/jest.js"
   },
