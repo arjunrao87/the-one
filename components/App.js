@@ -11,7 +11,7 @@ import Header from './Header';
 import Results from './Results';
 import Options from './Options';
 
-export default class HomeScreen extends React.Component {
+export default class App extends React.Component {
 
   render() {
     return (

@@ -1,9 +1,9 @@
 import { createRouter } from '@expo/ex-navigation';
 
-import HomeScreen from '../screens/HomeScreen';
+import App from '../components/App';
 import RootNavigation from './RootNavigation';
 
 export default createRouter(() => ({
-  home: () => HomeScreen,
+  home: () => App,
   rootNavigation: () => RootNavigation,
 }));
