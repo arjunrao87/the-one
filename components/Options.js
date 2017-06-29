@@ -7,9 +7,19 @@ import {
   View,
 } from 'react-native';
 
-var requests = require('../requests/requests');
+const baseURL = 'http://localhost:3000/';
+// Dummy variables for now. Can sub with real values down the road.
+var distance = 1;
+var cost = 1;
+var rating = 1;
 
 class Options extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -30,17 +40,90 @@ class Options extends React.Component {
   }
 
   getFoodOption = () => {
-    requests.getFoodOptionAsync(1,2,3);
+    makePostRequest(baseURL + 'food', distance, cost, rating)
+    .then((response) => {
+      var venue = getVenue(response);
+      this.props.retrieveVenue(venue);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
   getDrinksOption = () => {
-    requests.getDrinksOptionAsync(1,2,3);
+    makePostRequest(baseURL + 'drinks', distance, cost, rating)
+    .then((response) => {
+      var venue = getVenue(response);
+      this.props.retrieveVenue(venue);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
   getCafeOption = () => {
-    requests.getCafeOptionAsync(1,2,3);
+    makePostRequest(baseURL + 'cafe', distance, cost, rating)
+    .then((response) => {
+      var venue = getVenue(response);
+      this.props.retrieveVenue(venue);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
   getRandomOption = () => {
-    requests.getRandomOptionAsync(1,2,3);
+    makePostRequest(baseURL + 'random', distance, cost, rating)
+    .then((response) => {
+      var venue = getVenue(response);
+      this.props.retrieveVenue(venue);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
+}
+
+// ----------------------------- Request Helpers ----------------------------//
+
+function getVenue( response ){
+  var body = JSON.parse(response)._bodyInit;
+  var venues = JSON.parse( body );
+  var venue = getOneVenue( venues );
+  return venue;
+}
+
+function getOneVenue( venues ){
+  var item = Math.floor(Math.random()*venues.length);
+  var venue = venues[item];
+  console.log( "Choosing item # = " + item + ", value = " +  venue.name );
+  return venue;
+}
+
+function makePostRequest(url,distance,cost,rating){
+  console.log( "Making request to " + url );
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+       distance: distance,
+       cost: cost,
+       rating:rating,
+    })
+  }).then((response)=>{
+    var resp = JSON.stringify( response);
+    return resp;
+  });
+}
+
+function makeGetRequest(type,distance,cost,rating){
+  console.log( "Making get request for type = " + type );
+  var response = fetch(baseURL + type);
+  response.then( (response) => {
+    var resp = JSON.stringify( response);
+    console.log(resp);
+    return( resp );
+  });
 }
 
 const styles = StyleSheet.create({
