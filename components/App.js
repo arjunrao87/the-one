@@ -26,7 +26,6 @@ export default class App extends React.Component {
     return (
       <View style={{flex: 1}}>
         <View style={{flex: 6, backgroundColor: 'powderblue'}}>
-          <Header/>
           <Results venue={this.state.venue}/>
         </View>
         <View style={{flex: 5}}>
