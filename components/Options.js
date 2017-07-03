@@ -6,27 +6,54 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import { Constants, Location, Permissions } from 'expo';
 
 const baseURL = 'http://localhost:3000/';
-// Dummy variables for now. Can sub with real values down the road.
-var distance = 1;
-var cost = 1;
-var rating = 1;
+const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
 
 class Options extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      radius : "500",
+      price : "1,2,3,4",
+      latitude : "40.7128",
+      longitude : "-74.0059",
+      location: null,
+      errorMessage: null,
+    };
+  }
+
+  componentWillMount() {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      console.log( "Component mounted");
+      this._getLocationAsync();
+    }
+  }
+
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+    let location = await Location.getCurrentPositionAsync(GEOLOCATION_OPTIONS);
+    this.setState({ location });
   }
 
   render() {
     return (
       <View style={{flex: 1}}>
-        <TouchableHighlight underlayColor='chartreuse' style={{flex: 1, backgroundColor: 'plum'}} onPress={this.getCafeOption}>
+        <TouchableHighlight underlayColor='chartreuse' style={{flex: 1, backgroundColor: 'mediumorchid'}} onPress={this.getCafeOption}>
           <Text style={styles.optionText}>Cafes</Text>
         </TouchableHighlight>
-        <TouchableHighlight underlayColor='chartreuse' style={{flex: 1, backgroundColor: 'salmon'}} onPress={this.getRandomOption}>
+        <TouchableHighlight underlayColor='chartreuse' style={{flex: 1, backgroundColor: 'darkorange'}} onPress={this.getRandomOption}>
           <Text style={styles.optionText}>Random</Text>
         </TouchableHighlight>
         <TouchableHighlight underlayColor='chartreuse' style={{flex: 1, backgroundColor: 'dodgerblue'}} onPress={this.getFoodOption}>
@@ -40,7 +67,7 @@ class Options extends React.Component {
   }
 
   getFoodOption = () => {
-    makePostRequest(baseURL + 'food', distance, cost, rating)
+    makePostRequest(baseURL + 'food', this.state.radius, this.state.price, this.state.latitude, this.state.longitude )
     .then((response) => {
       var venue = getVenue(response);
       this.props.retrieveVenue(venue);
@@ -50,7 +77,7 @@ class Options extends React.Component {
     });
   };
   getDrinksOption = () => {
-    makePostRequest(baseURL + 'drinks', distance, cost, rating)
+    makePostRequest(baseURL + 'drinks', this.state.radius, this.state.price, this.state.latitude, this.state.longitude)
     .then((response) => {
       var venue = getVenue(response);
       this.props.retrieveVenue(venue);
@@ -60,7 +87,7 @@ class Options extends React.Component {
     });
   };
   getCafeOption = () => {
-    makePostRequest(baseURL + 'cafe', distance, cost, rating)
+    makePostRequest(baseURL + 'cafe', this.state.radius, this.state.price,  this.state.latitude, this.state.longitude)
     .then((response) => {
       var venue = getVenue(response);
       this.props.retrieveVenue(venue);
@@ -70,7 +97,7 @@ class Options extends React.Component {
     });
   };
   getRandomOption = () => {
-    makePostRequest(baseURL + 'random', distance, cost, rating)
+    makePostRequest(baseURL + 'random', this.state.radius, this.state.price, this.state.latitude, this.state.longitude)
     .then((response) => {
       var venue = getVenue(response);
       this.props.retrieveVenue(venue);
@@ -85,19 +112,27 @@ class Options extends React.Component {
 
 function getVenue( response ){
   var body = JSON.parse(response)._bodyInit;
-  var venues = JSON.parse( body );
-  var venue = getOneVenue( venues );
+  var venues = JSON.parse(body);
+  var venue = null;
+  if( venues ){
+    venue = getOneVenue( venues );
+  } else{
+    console.log( "Unable to retrieve venues for this category" );
+  }
   return venue;
 }
 
 function getOneVenue( venues ){
   var item = Math.floor(Math.random()*venues.length);
-  var venue = venues[item];
-  console.log( "Choosing item # = " + item + ", value = " +  venue.name );
+  var venue = null;
+  if ( venues[item] ){
+    venue = venues[item].venue;
+    console.log( "Choosing item # = " + item + ", value = " +  venue.name );
+  }
   return venue;
 }
 
-function makePostRequest(url,distance,cost,rating){
+function makePostRequest(url,radius,price,latitude,longitude){
   console.log( "Making request to " + url );
   return fetch(url, {
     method: 'POST',
@@ -106,23 +141,14 @@ function makePostRequest(url,distance,cost,rating){
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-       distance: distance,
-       cost: cost,
-       rating:rating,
+      latitude : latitude,
+      longitude : longitude,
+      radius: radius,
+      price: price,
     })
   }).then((response)=>{
     var resp = JSON.stringify( response);
     return resp;
-  });
-}
-
-function makeGetRequest(type,distance,cost,rating){
-  console.log( "Making get request for type = " + type );
-  var response = fetch(baseURL + type);
-  response.then( (response) => {
-    var resp = JSON.stringify( response);
-    console.log(resp);
-    return( resp );
   });
 }
 
