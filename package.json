@@ -19,7 +19,8 @@
     "react": "16.0.0-alpha.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-16.0.0.tar.gz",
     "react-native-drawer": "^2.3.0",
-    "react-native-hamburger": "0.0.2"
+    "react-native-hamburger": "0.0.2",
+    "react-native-slider": "^0.10.0"
   },
   "devDependencies": {
     "jest-expo": "0.4.0"
