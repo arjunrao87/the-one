@@ -2,3 +2,4 @@ node_modules/**/*
 .expo/**/*
 server/node_modules/
 server/npm-debug.log
+logs/server.log
