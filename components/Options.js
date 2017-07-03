@@ -10,6 +10,7 @@ import { Constants, Location, Permissions } from 'expo';
 
 const baseURL = 'http://localhost:3000/';
 const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
+var cache = {};
 
 class Options extends React.Component {
 
@@ -23,6 +24,7 @@ class Options extends React.Component {
       location: null,
       errorMessage: null,
     };
+    setInterval(clearCache, 300*1000);
   }
 
   componentWillMount() {
@@ -67,54 +69,98 @@ class Options extends React.Component {
   }
 
   getFoodOption = () => {
-    makePostRequest(baseURL + 'food', this.state.radius, this.state.price, this.state.latitude, this.state.longitude )
-    .then((response) => {
-      var venue = getVenue(response);
-      this.props.retrieveVenue(venue);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    var venue = null;
+    if( "food" in cache ){
+      console.log( "Found cached food value" );
+      venue = getOneVenue(cache.food);
+    }
+    if( venue == null ){
+      makePostRequest(baseURL + 'food', this.state.radius, this.state.price, this.state.latitude, this.state.longitude )
+      .then((response) => {
+        venue = getVenue(response, "food");
+        this.props.retrieveVenue(venue);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    } else{
+      this.props.retrieveVenue( venue );
+    }
   };
   getDrinksOption = () => {
-    makePostRequest(baseURL + 'drinks', this.state.radius, this.state.price, this.state.latitude, this.state.longitude)
-    .then((response) => {
-      var venue = getVenue(response);
-      this.props.retrieveVenue(venue);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    var venue = null;
+    if( "drinks" in cache ){
+      console.log( "Found cached drinks value" );
+      venue = getOneVenue(cache.drinks);
+    }
+    if( venue == null ){
+      makePostRequest(baseURL + 'drinks', this.state.radius, this.state.price, this.state.latitude, this.state.longitude)
+      .then((response) => {
+        var venue = getVenue(response, "drinks");
+        this.props.retrieveVenue(venue);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+    else{
+      this.props.retrieveVenue( venue );
+    }
   };
   getCafeOption = () => {
-    makePostRequest(baseURL + 'cafe', this.state.radius, this.state.price,  this.state.latitude, this.state.longitude)
-    .then((response) => {
-      var venue = getVenue(response);
-      this.props.retrieveVenue(venue);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    var venue = null;
+    if( "cafe" in cache ){
+      console.log( "Found cached cafe value" );
+      venue = getOneVenue(cache.cafe);
+    }
+    if( venue == null ){
+      makePostRequest(baseURL + 'cafe', this.state.radius, this.state.price,  this.state.latitude, this.state.longitude)
+      .then((response) => {
+        var venue = getVenue(response, "cafe");
+        this.props.retrieveVenue(venue);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    } else{
+      this.props.retrieveVenue( venue );
+    }
   };
   getRandomOption = () => {
-    makePostRequest(baseURL + 'random', this.state.radius, this.state.price, this.state.latitude, this.state.longitude)
-    .then((response) => {
-      var venue = getVenue(response);
-      this.props.retrieveVenue(venue);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    var venue = null;
+    if( "random" in cache ){
+      console.log( "Found cached random value" );
+      venue = getOneVenue(cache.random);
+    }
+    if( venue == null ){
+      makePostRequest(baseURL + 'random', this.state.radius, this.state.price, this.state.latitude, this.state.longitude)
+      .then((response) => {
+        var venue = getVenue(response, "random");
+        this.props.retrieveVenue(venue);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    } else{
+      this.props.retrieveVenue( venue );
+    }
   };
+}
+
+function clearCache(){
+  console.log( "Cleared cache..." );
+  cache = {};
 }
 
 // ----------------------------- Request Helpers ----------------------------//
 
-function getVenue( response ){
+function getVenue( response, key ){
   var body = JSON.parse(response)._bodyInit;
   var venues = JSON.parse(body);
   var venue = null;
   if( venues ){
+    console.log( "Storing " + key + " venues in cache..." );
+    cache[key] = venues;
     venue = getOneVenue( venues );
   } else{
     console.log( "Unable to retrieve venues for this category" );
