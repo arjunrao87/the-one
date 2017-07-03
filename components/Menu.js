@@ -56,9 +56,6 @@ export default class Menu extends React.Component {
               }/>
           </View>
           <TouchableHighlight style={{flex:1}} >
-            <Text style={styles.menuText}>Help</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={{flex:1}} >
             <Text style={styles.menuText}>About</Text>
           </TouchableHighlight>
         </View>
@@ -66,10 +63,6 @@ export default class Menu extends React.Component {
         </View>
       </View>
     )
-  }
-
-  complete(){
-    console.log( )
   }
 }
 
