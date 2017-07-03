@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import Drawer from 'react-native-drawer'
-
 import Menu from './Menu'
 import Main from './Main'
 
@@ -58,7 +57,6 @@ class Header extends React.Component{
 
 const drawerStyles = {
   drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},
-  main: {paddingLeft: 3},
 }
 
 const styles = StyleSheet.create({

@@ -9,7 +9,8 @@ import {
   View,
 } from 'react-native'
 import Hamburger from 'react-native-hamburger';
-
+import Results from './Results';
+import Options from './Options';
 export default class ControlPanel extends React.Component {
 
   constructor(props){
@@ -20,17 +21,24 @@ export default class ControlPanel extends React.Component {
     }
   }
 
+  venueCallback = (venue) => {
+    this.setState({venue:venue});
+  }
+
   static contextTypes = {
     drawer: React.PropTypes.object.isRequired,
   };
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <TouchableOpacity>
-          <Hamburger active={this.state.active} type="cross" onPress={this.trigger.bind(this)} />
-        </TouchableOpacity>
-      </ScrollView>
+      <View style={{flex: 1}}>
+        <View style={{flex: 6}}>
+          <Results venue={this.state.venue}/>
+        </View>
+        <View style={{flex: 5}}>
+          <Options retrieveVenue={this.venueCallback}/>
+        </View>
+      </View>
     )
   }
 
@@ -38,17 +46,10 @@ export default class ControlPanel extends React.Component {
     if( this.state.isMenuOpen ){
       this.context.drawer.close();
       this.setState({isMenuOpen:false});
-    } else{
+    } else {
       this.context.drawer.open();
       this.setState({isMenuOpen:true});
     }
     this.setState( {active:!this.state.active});
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    flex: 1,
-  },
-})

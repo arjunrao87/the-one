@@ -3,10 +3,13 @@ import {
   Platform,
   StyleSheet,
   Text,
+  ScrollView,
   TouchableHighlight,
+  TouchableOpacity,
   View,
   Linking,
 } from 'react-native';
+import Hamburger from 'react-native-hamburger';
 
 class Results extends React.Component{
 
@@ -14,9 +17,21 @@ class Results extends React.Component{
     super(props);
     this.state = {
       ratingColor :  'aliceblue',
-      rating : "0"
+      rating : "0",
+      active:false,
+      isMenuOpen:false
     };
   }
+
+
+    venueCallback = (venue) => {
+      this.setState({venue:venue});
+    }
+
+    static contextTypes = {
+      drawer: React.PropTypes.object.isRequired,
+    };
+
 
   render(){
     let content = null;
@@ -53,41 +68,56 @@ class Results extends React.Component{
 
     return(
       <View style={this.getContainerStyle(rating)}>
+        <ScrollView style={{paddingTop:20, paddingLeft:20, flex:2}}>
+          <TouchableOpacity>
+            <Hamburger active={this.state.active} type="cross" onPress={this.trigger.bind(this)} />
+          </TouchableOpacity>
+        </ScrollView>
+        <View style={{flex:8}}>
         <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.name}>{name}</Text>
         <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.category}>{category}</Text>
         <Text numberOfLines={1} onPress={() => this.openInAppleMaps(latitude, longitude)} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.address}>{address}</Text>
         <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.price}>{price}</Text>
         <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.rating}>{rating}</Text>
+        </View>
       </View>
     );
-  }
 
+
+
+  }
+  trigger(){
+    if( this.state.isMenuOpen ){
+      this.context.drawer.close();
+      this.setState({isMenuOpen:false});
+    } else {
+      this.context.drawer.open();
+      this.setState({isMenuOpen:true});
+    }
+    this.setState( {active:!this.state.active});
+  }
   getContainerStyle(rating){
     var containerStyle =  null;
     console.log( "Rating = " + rating );
     if( rating == null ){
       containerStyle = {
-          flex: 6,
           backgroundColor: 'aliceblue',
-          alignItems:'center'
+          flex :1
         }
     } else if( rating < 7 ){
       containerStyle = {
-          flex: 6,
           backgroundColor: 'lightsalmon',
-          alignItems:'center'
+          flex :1
         }
     } else if( rating < 9 ){
       containerStyle = {
-          flex: 6,
           backgroundColor: 'lemonchiffon',
-          alignItems:'center'
+          flex :1
         }
     } else {
       containerStyle = {
-          flex: 6,
           backgroundColor: 'mediumspringgreen',
-          alignItems:'center'
+          flex :1
         }
     }
     return containerStyle;
@@ -107,7 +137,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Iowan Old Style',
     alignItems : 'center',
-    marginTop:110
+    marginTop:50
   },
   category:{
     fontSize: 15,
