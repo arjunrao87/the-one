@@ -11,14 +11,13 @@ import { Constants, Location, Permissions } from 'expo';
 const baseURL = 'http://localhost:3000/';
 const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
 var cache = {};
+var lastRequest = {};
 
 class Options extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      radius : "500",
-      price : "1,2,3,4",
       latitude : "40.7128",
       longitude : "-74.0059",
       location: null,
@@ -68,16 +67,57 @@ class Options extends React.Component {
     );
   }
 
-  getFoodOption = () => {
+  getFoodOption = ()=>{
+    {this.makeRequest("food", this.props.menuOptions.price, this.props.menuOptions.distance, this.state.latitude,this.state.longitude)}
+  }
+  getCafeOption= ()=>{
+    {this.makeRequest("cafe", this.props.menuOptions.price, this.props.menuOptions.distance, this.state.latitude,this.state.longitude)}
+  }
+  getDrinksOption= ()=>{
+    {this.makeRequest("drinks", this.props.menuOptions.price, this.props.menuOptions.distance, this.state.latitude,this.state.longitude)}
+  }
+  getRandomOption= ()=>{
+    {this.makeRequest("random", this.props.menuOptions.price, this.props.menuOptions.distance, this.state.latitude,this.state.longitude)}
+  }
+
+  makeRequest(type, menuPrice, menuDistance, latitude, longitude) {
+    console.log( "Requesting data for " + type );
     var venue = null;
-    if( "food" in cache ){
-      console.log( "Found cached food value" );
-      venue = getOneVenue(cache.food);
+    if( ( menuDistance != lastRequest.distance) && (menuPrice != lastRequest.price) ){
+      console.log( "Menu options were changed. Will re-request data for new parameters... ");
+      lastRequest['price'] =  menuPrice;
+      lastRequest['distance'] =  menuDistance;
+      clearCache();
+    }
+    if( type in cache ){
+      console.log( "Found cached "+type+" value" );
+      if( type == "food"){
+        venue = getOneVenue(cache.food);
+      }
+      if( type == "cafe"){
+        venue = getOneVenue(cache.cafe);
+      }
+      if( type == "drinks"){
+        venue = getOneVenue(cache.drinks);
+      }
+      if( type == "random"){
+        venue = getOneVenue(cache.random);
+      }
     }
     if( venue == null ){
-      makePostRequest(baseURL + 'food', this.state.radius, this.state.price, this.state.latitude, this.state.longitude )
+      var checkForPrice = '1';
+      if( menuPrice == 2 ){
+        checkForPrice = '1,2';
+      }
+      if( menuPrice == 3 ){
+        checkForPrice = '1,2,3';
+      }
+      if( menuPrice == 4 ){
+        checkForPrice = '1,2,3,4';
+      }
+      makePostRequest(baseURL + type, menuDistance, checkForPrice, latitude, longitude )
       .then((response) => {
-        venue = getVenue(response, "food");
+        venue = getVenue(response, type);
         this.props.retrieveVenue(venue);
       })
       .catch((error) => {
@@ -86,73 +126,15 @@ class Options extends React.Component {
     } else{
       this.props.retrieveVenue( venue );
     }
-  };
-  getDrinksOption = () => {
-    var venue = null;
-    if( "drinks" in cache ){
-      console.log( "Found cached drinks value" );
-      venue = getOneVenue(cache.drinks);
-    }
-    if( venue == null ){
-      makePostRequest(baseURL + 'drinks', this.state.radius, this.state.price, this.state.latitude, this.state.longitude)
-      .then((response) => {
-        var venue = getVenue(response, "drinks");
-        this.props.retrieveVenue(venue);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }
-    else{
-      this.props.retrieveVenue( venue );
-    }
-  };
-  getCafeOption = () => {
-    var venue = null;
-    if( "cafe" in cache ){
-      console.log( "Found cached cafe value" );
-      venue = getOneVenue(cache.cafe);
-    }
-    if( venue == null ){
-      makePostRequest(baseURL + 'cafe', this.state.radius, this.state.price,  this.state.latitude, this.state.longitude)
-      .then((response) => {
-        var venue = getVenue(response, "cafe");
-        this.props.retrieveVenue(venue);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    } else{
-      this.props.retrieveVenue( venue );
-    }
-  };
-  getRandomOption = () => {
-    var venue = null;
-    if( "random" in cache ){
-      console.log( "Found cached random value" );
-      venue = getOneVenue(cache.random);
-    }
-    if( venue == null ){
-      makePostRequest(baseURL + 'random', this.state.radius, this.state.price, this.state.latitude, this.state.longitude)
-      .then((response) => {
-        var venue = getVenue(response, "random");
-        this.props.retrieveVenue(venue);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    } else{
-      this.props.retrieveVenue( venue );
-    }
-  };
-}
+  }
+};
+
+// ----------------------------- Request Helpers ----------------------------//
 
 function clearCache(){
   console.log( "Cleared cache..." );
   cache = {};
 }
-
-// ----------------------------- Request Helpers ----------------------------//
 
 function getVenue( response, key ){
   var body = JSON.parse(response)._bodyInit;

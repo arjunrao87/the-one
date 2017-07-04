@@ -14,6 +14,7 @@ class Header extends React.Component{
     state={
         drawerOpen: false,
         drawerDisabled: false,
+        data : {distance:500,price:2}
       };
     closeDrawer = () => {
       this._drawer.close()
@@ -21,13 +22,17 @@ class Header extends React.Component{
     openDrawer = () => {
       this._drawer.open()
     };
+    menuCallback = (data) => {
+      this.setState( {data:data}  );
+    }
+
     render() {
       return (
         <Drawer
           ref={(ref) => this._drawer = ref}
           type="static"
           content={
-            <Menu closeDrawer={this.closeDrawer} />
+            <Menu closeDrawer={this.closeDrawer} passMenuOptions={this.menuCallback} />
           }
           acceptDoubleTap
           styles={{main: {shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15}}}
@@ -49,7 +54,7 @@ class Header extends React.Component{
           panOpenMask={0.2}
           negotiatePan
           >
-          <Main />
+          <Main menuOptions = {this.state.data} />
         </Drawer>
       )
     }

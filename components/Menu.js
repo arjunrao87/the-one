@@ -26,12 +26,13 @@ export default class Menu extends React.Component {
               <Slider
                value={this.state.distance}
                value= {500}
-               maximumValue={5000}
+               maximumValue={2000}
                minimumValue={0}
                onSlidingComplete={(value) => {
                  console.log( "Finish Value = " + value);
-                 this.setState({distance:parseInt(value)})}
-                  }/>
+                 this.setState({distance:parseInt(value)})
+                 this.props.passMenuOptions({price:this.state.price,distance:parseInt(value)});
+                  }}/>
           </View>
           <View style={styles.distance} >
             <Text style={styles.menuText}>Price  - {this.state.priceRating} </Text>
@@ -52,6 +53,7 @@ export default class Menu extends React.Component {
                  } else if ( value == 4 ){
                    this.setState( {priceRating:'$$$$'});
                  }
+                 this.props.passMenuOptions({price:value,distance:this.state.distance});
                 }
               }/>
           </View>

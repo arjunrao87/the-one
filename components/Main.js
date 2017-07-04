@@ -36,7 +36,7 @@ export default class ControlPanel extends React.Component {
           <Results venue={this.state.venue}/>
         </View>
         <View style={{flex: 5}}>
-          <Options retrieveVenue={this.venueCallback}/>
+          <Options menuOptions={this.props.menuOptions} retrieveVenue={this.venueCallback}/>
         </View>
       </View>
     )
