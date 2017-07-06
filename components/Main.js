@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import Hamburger from 'react-native-hamburger';
 import Results from './Results';
 import Options from './Options';
+
 export default class ControlPanel extends React.Component {
 
   constructor(props){
@@ -36,7 +36,7 @@ export default class ControlPanel extends React.Component {
           <Results venue={this.state.venue}/>
         </View>
         <View style={{flex: 5}}>
-          <Options menuOptions={this.props.menuOptions} retrieveVenue={this.venueCallback}/>
+          <Options menuOptions={this.props.menuOptions} retrieveVenue={this.venueCallback} location={this.props.location}/>
         </View>
       </View>
     )

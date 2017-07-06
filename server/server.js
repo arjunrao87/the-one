@@ -7,9 +7,16 @@ var logger = require('./log.js')
 var app = express();
 app.use(bodyParser.json());
 
-app.listen(3000, function () {
-  logger.info('Started up Decision Maker Server on port 3000!');
-})
+// Constants
+const PORT = 8080;
+const HOST = '0.0.0.0';
+
+// App
+app.get('/', function (req, res) {
+  res.send('Decision maker server is up and running...\n');
+});
+
+app.listen(PORT, HOST);
 
 app.post('/food', function(req, res) {
   var latitude = req.body.latitude;

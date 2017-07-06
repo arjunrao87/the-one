@@ -54,7 +54,7 @@ class Header extends React.Component{
           panOpenMask={0.2}
           negotiatePan
           >
-          <Main menuOptions = {this.state.data} />
+          <Main menuOptions = {this.state.data} location={this.props.location}/>
         </Drawer>
       )
     }

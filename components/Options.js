@@ -3,15 +3,17 @@ import {
   Platform,
   StyleSheet,
   Text,
+  Alert,
   TouchableHighlight,
   View,
 } from 'react-native';
-import { Constants, Location, Permissions } from 'expo';
+const timer = require('react-native-timer');
 
+const MAX_NUMBER_OF_REQUESTS = 1;
 const baseURL = 'http://localhost:3000/';
-const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
 var cache = {};
 var lastRequest = {};
+var counters = {'food' : 0, 'drinks' : 0, 'cafe' : 0, 'random' : 0 };
 
 class Options extends React.Component {
 
@@ -22,30 +24,12 @@ class Options extends React.Component {
       longitude : "-74.0059",
       location: null,
       errorMessage: null,
+      foodCounter:0,
+      cafeCounter:0,
+      drinksCounter:0,
+      randomCounter:0,
     };
-    setInterval(clearCache, 300*1000);
-  }
-
-  componentWillMount() {
-    if (Platform.OS === 'android' && !Constants.isDevice) {
-      this.setState({
-        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-      });
-    } else {
-      console.log( "Component mounted");
-      this._getLocationAsync();
-    }
-  }
-
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      });
-    }
-    let location = await Location.getCurrentPositionAsync(GEOLOCATION_OPTIONS);
-    this.setState({ location });
+    setInterval(clearCache, 600*1000);
   }
 
   render() {
@@ -68,19 +52,45 @@ class Options extends React.Component {
   }
 
   getFoodOption = ()=>{
-    {this.makeRequest("food", this.props.menuOptions.price, this.props.menuOptions.distance, this.state.latitude,this.state.longitude)}
+    if( counters.food < MAX_NUMBER_OF_REQUESTS ){
+      {this.makeRequest("food", this.props.menuOptions.price, this.props.menuOptions.distance)}
+      counters['food'] = counters.food + 1;
+      timer.setTimeout("foodRequestTimer", resetFoodCounter, 120000);
+    } else{
+      Alert.alert( "You can't choose another food option for 2 mins since your last one!" );
+    }
   }
   getCafeOption= ()=>{
-    {this.makeRequest("cafe", this.props.menuOptions.price, this.props.menuOptions.distance, this.state.latitude,this.state.longitude)}
+    if( counters.cafe < MAX_NUMBER_OF_REQUESTS ){
+      {this.makeRequest("cafe", this.props.menuOptions.price, this.props.menuOptions.distance)}
+      counters['cafe'] = counters.cafe + 1;
+      timer.setTimeout("cafeRequestTimer", resetCafeCounter, 120000);
+    } else{
+      Alert.alert( "You can't choose another cafe option for 2 mins since your last one!" );
+    }
   }
   getDrinksOption= ()=>{
-    {this.makeRequest("drinks", this.props.menuOptions.price, this.props.menuOptions.distance, this.state.latitude,this.state.longitude)}
+    if( counters.drinks < MAX_NUMBER_OF_REQUESTS ){
+      {this.makeRequest("drinks", this.props.menuOptions.price, this.props.menuOptions.distance)}
+      counters['drinks'] = counters.drinks + 1;
+      timer.setTimeout("drinksRequestTimer", resetDrinksCounter, 120000);
+    } else{
+      Alert.alert( "You can't choose another drinks option for 2 mins since your last one!" );
+    }
   }
   getRandomOption= ()=>{
-    {this.makeRequest("random", this.props.menuOptions.price, this.props.menuOptions.distance, this.state.latitude,this.state.longitude)}
+    if( counters.random < MAX_NUMBER_OF_REQUESTS ){
+      {this.makeRequest("random", this.props.menuOptions.price, this.props.menuOptions.distance)}
+      counters['random'] = counters.random + 1;
+      timer.setTimeout("randomRequestTimer", resetRandomCounter, 120000);
+    } else{
+      Alert.alert( "You can't choose another random option for 2 mins since your last one!" );
+    }
   }
 
-  makeRequest(type, menuPrice, menuDistance, latitude, longitude) {
+  makeRequest(type, menuPrice, menuDistance) {
+    {var latitude  = this.getLatitude()}
+    {var longitude = this.getLongitude()}
     console.log( "Requesting data for " + type );
     var venue = null;
     if( ( menuDistance != lastRequest.distance) && (menuPrice != lastRequest.price) ){
@@ -127,6 +137,26 @@ class Options extends React.Component {
       this.props.retrieveVenue( venue );
     }
   }
+
+  getLatitude=()=>{
+    if( this.props.location && this.props.location.coords.latitude ){
+      console.log( "Getting actual user latitude - " + this.props.location.coords.latitude );
+      return this.props.location.coords.latitude;
+    } else{
+      console.log( "Getting fake user latitude - " + this.state.latitude );
+      return this.state.latitude;
+    }
+  }
+
+  getLongitude(){
+    if( this.props.location && this.props.location.coords.longitude ){
+      console.log( "Getting actual user longitude - " + this.props.location.coords.longitude );
+      return this.props.location.coords.longitude;
+    } else{
+      console.log( "Getting fake user longitude - " + this.state.longitude );
+      return this.state.longitude;
+    }
+  }
 };
 
 // ----------------------------- Request Helpers ----------------------------//
@@ -134,6 +164,26 @@ class Options extends React.Component {
 function clearCache(){
   console.log( "Cleared cache..." );
   cache = {};
+}
+
+function resetFoodCounter(){
+  console.log( "Resetting food counter after timeout." );
+  counters['food'] = 0;
+}
+
+function resetCafeCounter(){
+  console.log( "Resetting cafe counter after timeout." );
+  counters['cafe'] = 0;
+}
+
+function resetDrinksCounter(){
+  console.log( "Resetting drinks counter after timeout." );
+  counters['drinks'] = 0;
+}
+
+function resetRandomCounter(){
+  console.log( "Resetting random counter after timeout." );
+  counters['random'] = 0;
 }
 
 function getVenue( response, key ){

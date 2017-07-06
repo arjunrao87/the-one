@@ -17,10 +17,11 @@ export default class Menu extends React.Component {
     super( props );
     this.state = {distance:500,price:2, priceRating:'$$'};
   }
+
   render() {
     return (
       <View style={{flex:1}}>
-        <View style={{flex:1, backgroundColor:'ivory', padding:20}}>
+        <View style={{flex:1, backgroundColor:'ivory', padding:20, paddingTop:50}}>
           <View style={styles.distance} >
             <Text style={styles.menuText}>Distance - {this.state.distance} m</Text>
               <Slider

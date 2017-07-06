@@ -23,15 +23,13 @@ class Results extends React.Component{
     };
   }
 
+  venueCallback = (venue) => {
+    this.setState({venue:venue});
+  }
 
-    venueCallback = (venue) => {
-      this.setState({venue:venue});
-    }
-
-    static contextTypes = {
-      drawer: React.PropTypes.object.isRequired,
-    };
-
+  static contextTypes = {
+    drawer: React.PropTypes.object.isRequired,
+  };
 
   render(){
     let content = null;
