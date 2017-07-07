@@ -49,7 +49,7 @@ class Header extends React.Component{
           panThreshold={0.08}
           disabled={this.state.drawerDisabled}
           openDrawerOffset={(viewport) => {
-            return 100
+            return 65
           }}
           panOpenMask={0.2}
           negotiatePan

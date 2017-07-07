@@ -22,7 +22,7 @@ export default class Menu extends React.Component {
   render() {
     return (
       <View style={{flex:1}}>
-        <View style={{flex:1, backgroundColor:'ivory', padding:20, paddingTop:50}}>
+        <View style={{flex:4, backgroundColor:'ivory', padding:20, paddingTop:50}}>
           <View style={styles.distance} >
             <Text style={styles.menuText}>Distance - {this.state.distance} m</Text>
               <Slider
@@ -66,7 +66,7 @@ export default class Menu extends React.Component {
             <Text style={styles.about}>About</Text>
           </TouchableHighlight>
         </View>
-        <View style={{flex:1, backgroundColor:'ivory'}}>
+        <View style={{flex:2, backgroundColor:'ivory'}}>
         </View>
       </View>
     )
@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   menuText:{
-    fontSize: 20,
+    paddingTop:20,
+    fontSize: 18,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
@@ -86,15 +87,15 @@ const styles = StyleSheet.create({
   },
   rating:{
     paddingTop: 40,
-    fontSize: 20,
+    fontSize: 18,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
     fontFamily:'Avenir'
   },
   about:{
-    paddingTop: 20,
-    fontSize: 20,
+    paddingTop: 40,
+    fontSize: 18,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     marginRight: 40,
+    paddingBottom:50,
     alignItems: 'stretch',
     justifyContent: 'center',
   },
