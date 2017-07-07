@@ -1,8 +1,8 @@
 var request=require('request');
 var logger = require('./log.js')
 
-var clientId     = "KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI";
-var clientSecret = "OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF" ;
+var clientId     = process.env.CLIENT_ID;
+var clientSecret = process.env.CLIENT_SECRET;
 
 exports.explore = function makeExploreRequest(response, key, latitude, longitude, price, radius){
   logger.info( "Received request for ''" + key + "''");

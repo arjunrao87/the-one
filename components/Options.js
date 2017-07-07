@@ -1,3 +1,4 @@
+import Config from 'react-native-config'
 import React from 'react';
 import {
   Platform,
@@ -10,10 +11,10 @@ import {
 const timer = require('react-native-timer');
 
 const MAX_NUMBER_OF_REQUESTS = 1;
-const baseURL = 'http://localhost:3000/';
 var cache = {};
 var lastRequest = {};
 var counters = {'food' : 0, 'drinks' : 0, 'cafe' : 0, 'random' : 0 };
+var baseURL = "http://localhost:8080/";
 
 class Options extends React.Component {
 

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Slider,
   View,
+  Button,
 } from 'react-native'
 
 export default class Menu extends React.Component {
@@ -59,7 +60,10 @@ export default class Menu extends React.Component {
               }/>
           </View>
           <TouchableHighlight style={{flex:1}} >
-            <Text style={styles.menuText}>About</Text>
+            <Text style={styles.rating}>Rate Us!</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={{flex:1}} >
+            <Text style={styles.about}>About</Text>
           </TouchableHighlight>
         </View>
         <View style={{flex:1, backgroundColor:'ivory'}}>
@@ -74,6 +78,22 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   menuText:{
+    fontSize: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontFamily:'Avenir'
+  },
+  rating:{
+    paddingTop: 40,
+    fontSize: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontFamily:'Avenir'
+  },
+  about:{
+    paddingTop: 20,
     fontSize: 20,
     justifyContent: 'center',
     alignItems: 'center',

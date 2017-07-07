@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Header from './Header';
 import {Permissions,Location} from 'expo';
+var baseURL = "http://localhost:8080/";
 
 export default class App extends React.Component {
 
@@ -37,10 +38,29 @@ export default class App extends React.Component {
     }
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ location:location });
+    {this.sendMetrics( location );}
   };
 
   venueCallback = (venue) => {
     this.setState({venue:venue});
+  }
+
+  sendMetrics(location){
+    var latitude = null;
+    var longitude = null;
+    if( location ){
+      latitude = location.coords.latitude;
+      longitude = location.coords.longitude;
+    }
+    var os = Platform.OS;
+    var osVersion = null;
+    var date = new Date();
+    var offset = date.getTimezoneOffset();
+    if( os == "Android" ){
+      osVersion = Platform.Version;
+    }
+    console.log( "User info ==> Latitude  = " + latitude + ", longitude = " + longitude + ", os = " + os + ", osVersion = " + osVersion + ", date = " + date + ", offset = " + offset );
+    {this.makePostRequest(baseURL+"metrics", os,osVersion,latitude,longitude,date,offset)}
   }
 
   render() {
@@ -49,5 +69,24 @@ export default class App extends React.Component {
         <Header location={this.state.location}/>
       </View>
     );
+  }
+
+  makePostRequest(url,os,osVersion,latitude,longitude,date,offset){
+    console.log( "Making request to " + url );
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        latitude : latitude,
+        longitude : longitude,
+        os: os,
+        osVersion : osVersion,
+        date : date,
+        offset :offset
+      })
+    });
   }
 }

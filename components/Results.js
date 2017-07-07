@@ -131,7 +131,7 @@ class Results extends React.Component{
 
 const styles = StyleSheet.create({
   name:{
-    fontSize: 40,
+    fontSize: 30,
     textAlign: 'center',
     fontFamily: 'Iowan Old Style',
     alignItems : 'center',

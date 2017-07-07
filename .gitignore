@@ -4,3 +4,4 @@ server/node_modules/
 server/npm-debug.log
 logs/server.log
 .DS_Store
+server/.env

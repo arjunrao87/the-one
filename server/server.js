@@ -1,3 +1,4 @@
+require('dotenv').config()
 var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
@@ -13,10 +14,20 @@ const HOST = '0.0.0.0';
 
 // App
 app.get('/', function (req, res) {
-  res.send('Decision maker server is up and running...\n');
+  res.send('Decision maker server is up and running...\n' );
 });
 
 app.listen(PORT, HOST);
+
+app.post('/metrics', function(req, res) {
+  var latitude = req.body.latitude;
+  var longitude = req.body.longitude;
+  var os = req.body.os;
+  var osVersion = req.body.osVersion;
+  var date = req.body.date;
+  var offset = req.body.offset;
+  logger.info( "Received User Info ==> Latitude  = " + latitude + ", longitude = " + longitude + ", os = " + os + ", osVersion = " + osVersion + ", date = " + date + ", offset = " + offset );
+});
 
 app.post('/food', function(req, res) {
   var latitude = req.body.latitude;
