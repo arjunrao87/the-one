@@ -4,6 +4,7 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var requests = require( "./requests" );
 var logger = require('./log.js')
+var nodemailer = require('nodemailer');
 
 var app = express();
 app.use(bodyParser.json());
@@ -19,6 +20,8 @@ app.get('/', function (req, res) {
 
 app.listen(PORT, HOST);
 
+//------------------- Defining routes -------------------//
+
 app.post('/metrics', function(req, res) {
   var latitude = req.body.latitude;
   var longitude = req.body.longitude;
@@ -27,6 +30,33 @@ app.post('/metrics', function(req, res) {
   var date = req.body.date;
   var offset = req.body.offset;
   logger.info( "Received User Info ==> Latitude  = " + latitude + ", longitude = " + longitude + ", os = " + os + ", osVersion = " + osVersion + ", date = " + date + ", offset = " + offset );
+});
+
+app.post('/feedback', function(req, res) {
+  var text = req.body.text;
+  logger.info( "Received User Feedback ==> " + text );
+  var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: process.env.EMAIL_ADDRESS,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    });
+  var mailOptions = {
+    from: process.env.EMAIL_ADDRESS,
+    to: process.env.EMAIL_ADDRESS,
+    subject: 'User Feedback - The One', // Subject line
+    text: text
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+          console.log(error);
+          res.json({yo: 'error'});
+      }else{
+          console.log('Message sent: ' + info.response);
+          res.json({yo: info.response});
+      };
+  });
 });
 
 app.post('/food', function(req, res) {
