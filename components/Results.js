@@ -7,8 +7,10 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   View,
+  WebView,
   Linking,
 } from 'react-native';
+import Modal from 'react-native-modalbox';
 import Hamburger from 'react-native-hamburger';
 
 class Results extends React.Component{
@@ -41,6 +43,7 @@ class Results extends React.Component{
     var longitude = null;
     var price = null;
     var rating = null;
+    var url = 'https://www.google.com/maps?daddr=';
     if(  this.props.venue ){
       console.log( JSON.stringify(this.props.venue) );
       var venueVal = JSON.stringify(this.props.venue);
@@ -51,6 +54,8 @@ class Results extends React.Component{
                   + JSON.parse( venueVal ).location.city ;
       latitude = JSON.parse( venueVal ).location.lat;
       longitude = JSON.parse( venueVal ).location.lng;
+      url = url +latitude+","+longitude
+      console.log( url );
       rating = JSON.parse( venueVal ).rating;
       var tier = JSON.parse( venueVal ).price.tier;
       if( tier == 1 ){
@@ -74,15 +79,12 @@ class Results extends React.Component{
         <View style={{flex:8}}>
         <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.name}>{name}</Text>
         <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.category}>{category}</Text>
-        <Text numberOfLines={1} onPress={() => this.openInAppleMaps(latitude, longitude)} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.address}>{address}</Text>
+        <Text numberOfLines={1} onPress={() => this.openInMaps(latitude,longitude)} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.address}>{address}</Text>
         <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.price}>{price}</Text>
         <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.rating}>{rating}</Text>
         </View>
       </View>
     );
-
-
-
   }
   trigger(){
     if( this.state.isMenuOpen ){
@@ -121,11 +123,17 @@ class Results extends React.Component{
     return containerStyle;
   }
 
-  openInAppleMaps(latitude,longitude){
+  openInMaps(latitude,longitude){
     if ( latitude && longitude ){
       console.log( "Opening address with "+ latitude + "," + longitude);
-      Linking.openURL("http://maps.apple.com/?daddr="+latitude+","+longitude);
+      Linking.openURL("https://www.google.com/maps?daddr="+latitude+","+longitude);
     }
+    // <Modal style={[styles.mapModal]} position={"center"} ref={"mapModal"} isDisabled={this.state.isDisabled}>
+    //   <WebView
+    //    source={{uri:url}}
+    //    style={{marginTop: 20}}
+    //  />
+    // </Modal>
   }
 }
 
@@ -161,6 +169,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Iowan Old Style',
     marginTop: 20,
+  },
+  mapModal:{
+    height: 500,
+    width: 500,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+    backgroundColor:'cornsilk'
   },
   optionText: {
     fontSize: 45,

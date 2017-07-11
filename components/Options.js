@@ -8,13 +8,17 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-const timer = require('react-native-timer');
+import {baseURL} from './App';
 
-const MAX_NUMBER_OF_REQUESTS = 1;
+var timer = require('react-native-timer');
 var cache = {};
 var lastRequest = {};
+var lastFoodVenue=null;
+var lastDrinksVenue = null;
+var lastCafeVenue=null;
+var lastRandomVenue=null;
 var counters = {'food' : 0, 'drinks' : 0, 'cafe' : 0, 'random' : 0 };
-var baseURL = "https://18bc3076.ngrok.io/"//"http://localhost:8080/";
+const MAX_NUMBER_OF_REQUESTS = 1;
 
 class Options extends React.Component {
 
@@ -53,40 +57,48 @@ class Options extends React.Component {
   }
 
   getFoodOption = ()=>{
-    if( counters.food < MAX_NUMBER_OF_REQUESTS ){
+    if( counters.food < MAX_NUMBER_OF_REQUESTS || !lastFoodVenue ){
       {this.makeRequest("food", this.props.menuOptions.price, this.props.menuOptions.distance)}
       counters['food'] = counters.food + 1;
       timer.setTimeout("foodRequestTimer", resetFoodCounter, 120000);
     } else{
-      Alert.alert( "You can't choose another food option for 2 mins since your last one!" );
+      {this.showCached( lastFoodVenue )}
+      Alert.alert( "You can't choose a new food option for 2 mins since your last one!" );
     }
   }
   getCafeOption= ()=>{
-    if( counters.cafe < MAX_NUMBER_OF_REQUESTS ){
+    if( counters.cafe < MAX_NUMBER_OF_REQUESTS || !lastCafeVenue ){
       {this.makeRequest("cafe", this.props.menuOptions.price, this.props.menuOptions.distance)}
       counters['cafe'] = counters.cafe + 1;
       timer.setTimeout("cafeRequestTimer", resetCafeCounter, 120000);
     } else{
-      Alert.alert( "You can't choose another cafe option for 2 mins since your last one!" );
+      {this.showCached( lastCafeVenue )}
+      Alert.alert( "You can't choose a new cafe option for 2 mins since your last one!" );
     }
   }
   getDrinksOption= ()=>{
-    if( counters.drinks < MAX_NUMBER_OF_REQUESTS ){
+    if( counters.drinks < MAX_NUMBER_OF_REQUESTS || !lastDrinksVenue ){
       {this.makeRequest("drinks", this.props.menuOptions.price, this.props.menuOptions.distance)}
       counters['drinks'] = counters.drinks + 1;
       timer.setTimeout("drinksRequestTimer", resetDrinksCounter, 120000);
     } else{
-      Alert.alert( "You can't choose another drinks option for 2 mins since your last one!" );
+      {this.showCached( lastDrinksVenue )}
+      Alert.alert( "You can't choose a new drinks option for 2 mins since your last one!" );
     }
   }
   getRandomOption= ()=>{
-    if( counters.random < MAX_NUMBER_OF_REQUESTS ){
+    if( counters.random < MAX_NUMBER_OF_REQUESTS || !lastRandomVenue){
       {this.makeRequest("random", this.props.menuOptions.price, this.props.menuOptions.distance)}
       counters['random'] = counters.random + 1;
       timer.setTimeout("randomRequestTimer", resetRandomCounter, 120000);
     } else{
-      Alert.alert( "You can't choose another random option for 2 mins since your last one!" );
+      {this.showCached( lastRandomVenue )}
+      Alert.alert( "You can't choose a new random option for 2 mins since your last one!" );
     }
+  }
+
+  showCached( venue ){
+    this.props.retrieveVenue(venue);
   }
 
   makeRequest(type, menuPrice, menuDistance) {
@@ -104,15 +116,19 @@ class Options extends React.Component {
       console.log( "Found cached "+type+" value" );
       if( type == "food"){
         venue = getOneVenue(cache.food);
+        lastFoodVenue = venue;
       }
       if( type == "cafe"){
         venue = getOneVenue(cache.cafe);
+        lastCafeVenue = venue;
       }
       if( type == "drinks"){
         venue = getOneVenue(cache.drinks);
+        lastDrinksVenue = venue;
       }
       if( type == "random"){
         venue = getOneVenue(cache.random);
+        lastRandomVenue = venue;
       }
     }
     if( venue == null ){
@@ -129,6 +145,18 @@ class Options extends React.Component {
       makePostRequest(baseURL + type, menuDistance, checkForPrice, latitude, longitude )
       .then((response) => {
         venue = getVenue(response, type);
+        if( type == "food"){
+          lastFoodVenue = venue;
+        }
+        if( type == "cafe"){
+          lastCafeVenue = venue;
+        }
+        if( type == "drinks"){
+          lastDrinksVenue = venue;
+        }
+        if( type == "random"){
+          lastRandomVenue = venue;
+        }
         this.props.retrieveVenue(venue);
       })
       .catch((error) => {

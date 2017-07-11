@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import Header from './Header';
 import {Permissions,Location} from 'expo';
-var baseURL = "http://localhost:8080/";
+
+var baseURL = "http://104.236.66.151:8080/"
 
 export default class App extends React.Component {
 
@@ -90,3 +91,5 @@ export default class App extends React.Component {
     });
   }
 }
+
+export {baseURL};
