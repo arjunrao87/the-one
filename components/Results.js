@@ -13,6 +13,7 @@ import {
 import Modal from 'react-native-modalbox';
 import Hamburger from 'react-native-hamburger';
 import * as Progress from 'react-native-progress';
+
 var messages = {'food':'', 'cafe' :'', 'drinks': '', 'random':''}
 
 class Results extends React.Component{
@@ -109,10 +110,6 @@ class Results extends React.Component{
     );
   }
 
-  getProgress(){
-    return 0.3;
-  }
-
   trigger(){
     if( this.state.isMenuOpen ){
       this.context.drawer.close();
@@ -123,6 +120,7 @@ class Results extends React.Component{
     }
     this.setState( {active:!this.state.active});
   }
+  
   getContainerStyle(rating){
     var containerStyle =  null;
     console.log( "Rating = " + rating );

@@ -39,12 +39,10 @@ export default class Menu extends React.Component {
           <View style={styles.distance} >
             <Text style={styles.menuText}>Distance - {this.state.distance} m</Text>
               <Slider
-               value={this.state.distance}
                value= {100}
                maximumValue={750}
                minimumValue={0}
                onSlidingComplete={(value) => {
-                 console.log( "Finish Value = " + value);
                  this.setState({distance:parseInt(value)})
                  this.props.passMenuOptions({price:this.state.price,distance:parseInt(value)});
                   }}/>

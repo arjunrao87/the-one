@@ -26,7 +26,6 @@ export default class ControlPanel extends React.Component {
   }
 
   resetMsg = ( type ) => {
-    console.log( "Will attemt reset of message for type = " + type );
     this.setState({resetType:type});
   }
 

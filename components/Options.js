@@ -20,6 +20,7 @@ var lastRandomVenue=null;
 var counters = {'food' : 0, 'drinks' : 0, 'cafe' : 0, 'random' : 0 };
 var that = null;
 var cafeInterval, foodInterval,randomInterval, drinksInterval = null;
+
 const TIMEOUT = 120000;
 const MAX_NUMBER_OF_REQUESTS = 1;
 
@@ -88,8 +89,68 @@ class Options extends React.Component {
       this.setState( {randomPressed:false});
     }
   }
+
+  getCafeOption= ()=>{
+    if( counters.cafe < MAX_NUMBER_OF_REQUESTS || !lastCafeVenue ){
+      {this.makeRequest("cafe", this.props.menuOptions.price, this.props.menuOptions.distance)}
+      counters['cafe'] = counters.cafe + 1;
+      {this.setTimer( "cafe" )}
+    } else{
+      {this.showCached( "cafe", lastCafeVenue )}
+    }
+    this.setState({cafePressed:true});
+    if( this.state.foodPressed ){
+      this.setState( {foodPressed:false});
+    }
+    if( this.state.drinksPressed ){
+      this.setState( {drinksPressed:false});
+    }
+    if( this.state.randomPressed ){
+      this.setState( {randomPressed:false});
+    }
+  }
+
+  getDrinksOption= ()=>{
+    if( counters.drinks < MAX_NUMBER_OF_REQUESTS || !lastDrinksVenue ){
+      {this.makeRequest("drinks", this.props.menuOptions.price, this.props.menuOptions.distance)}
+      counters['drinks'] = counters.drinks + 1;
+      {this.setTimer( "drinks" )}
+    } else{
+      {this.showCached( "drinks", lastDrinksVenue )}
+    }
+    this.setState({drinksPressed:true});
+    if( this.state.cafePressed ){
+      this.setState( {cafePressed:false});
+    }
+    if( this.state.foodPressed ){
+      this.setState( {foodPressed:false});
+    }
+    if( this.state.randomPressed ){
+      this.setState( {randomPressed:false});
+    }
+  }
+
+  getRandomOption= ()=>{
+    if( counters.random < MAX_NUMBER_OF_REQUESTS || !lastRandomVenue){
+      {this.makeRequest("random", this.props.menuOptions.price, this.props.menuOptions.distance)}
+      counters['random'] = counters.random + 1;
+      {this.setTimer( "random" )}
+    } else{
+      {this.showCached( "random", lastRandomVenue )}
+    }
+    this.setState({randomPressed:true});
+    if( this.state.cafePressed ){
+      this.setState( {cafePressed:false});
+    }
+    if( this.state.drinksPressed ){
+      this.setState( {drinksPressed:false});
+    }
+    if( this.state.foodPressed ){
+      this.setState( {foodPressed:false});
+    }
+  }
+
   setTimer(type){
-    console.log( "Setting timer for type = " + type );
     var count = TIMEOUT/1000;
     var that = this;
     var typeInterval = setInterval( function(){
@@ -140,6 +201,7 @@ class Options extends React.Component {
       cafeInterval = typeInterval;
     }
   }
+
   resetTimer(type){
     if( type == "food" ){
       clearInterval(foodInterval)
@@ -152,63 +214,6 @@ class Options extends React.Component {
     }
     if( type == "cafe" ){
       clearInterval(cafeInterval)
-    }
-  }
-  getCafeOption= ()=>{
-    if( counters.cafe < MAX_NUMBER_OF_REQUESTS || !lastCafeVenue ){
-      {this.makeRequest("cafe", this.props.menuOptions.price, this.props.menuOptions.distance)}
-      counters['cafe'] = counters.cafe + 1;
-      {this.setTimer( "cafe" )}
-    } else{
-      {this.showCached( "cafe", lastCafeVenue )}
-    }
-    this.setState({cafePressed:true});
-    if( this.state.foodPressed ){
-      this.setState( {foodPressed:false});
-    }
-    if( this.state.drinksPressed ){
-      this.setState( {drinksPressed:false});
-    }
-    if( this.state.randomPressed ){
-      this.setState( {randomPressed:false});
-    }
-  }
-  getDrinksOption= ()=>{
-    if( counters.drinks < MAX_NUMBER_OF_REQUESTS || !lastDrinksVenue ){
-      {this.makeRequest("drinks", this.props.menuOptions.price, this.props.menuOptions.distance)}
-      counters['drinks'] = counters.drinks + 1;
-      {this.setTimer( "drinks" )}
-    } else{
-      {this.showCached( "drinks", lastDrinksVenue )}
-    }
-    this.setState({drinksPressed:true});
-    if( this.state.cafePressed ){
-      this.setState( {cafePressed:false});
-    }
-    if( this.state.foodPressed ){
-      this.setState( {foodPressed:false});
-    }
-    if( this.state.randomPressed ){
-      this.setState( {randomPressed:false});
-    }
-  }
-  getRandomOption= ()=>{
-    if( counters.random < MAX_NUMBER_OF_REQUESTS || !lastRandomVenue){
-      {this.makeRequest("random", this.props.menuOptions.price, this.props.menuOptions.distance)}
-      counters['random'] = counters.random + 1;
-      {this.setTimer( "random" )}
-    } else{
-      {this.showCached( "random", lastRandomVenue )}
-    }
-    this.setState({randomPressed:true});
-    if( this.state.cafePressed ){
-      this.setState( {cafePressed:false});
-    }
-    if( this.state.drinksPressed ){
-      this.setState( {drinksPressed:false});
-    }
-    if( this.state.foodPressed ){
-      this.setState( {foodPressed:false});
     }
   }
 
