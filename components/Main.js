@@ -21,8 +21,13 @@ export default class ControlPanel extends React.Component {
     }
   }
 
-  venueCallback = (venue) => {
-    this.setState({venue:venue});
+  venueCallback = (type, venue, message) => {
+    this.setState({type:type, venue:venue, message:message});
+  }
+
+  resetMsg = ( type ) => {
+    console.log( "Will attemt reset of message for type = " + type );
+    this.setState({resetType:type});
   }
 
   static contextTypes = {
@@ -33,10 +38,10 @@ export default class ControlPanel extends React.Component {
     return (
       <View style={{flex: 1}}>
         <View style={{flex: 6}}>
-          <Results venue={this.state.venue}/>
+          <Results type={this.state.type} venue={this.state.venue} message={this.state.message} resetType={this.state.resetType}/>
         </View>
         <View style={{flex: 5}}>
-          <Options menuOptions={this.props.menuOptions} retrieveVenue={this.venueCallback} location={this.props.location}/>
+          <Options menuOptions={this.props.menuOptions} retrieveVenue={this.venueCallback} resetMessage={this.resetMsg} location={this.props.location}/>
         </View>
       </View>
     )

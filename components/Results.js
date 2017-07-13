@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modalbox';
 import Hamburger from 'react-native-hamburger';
+import * as Progress from 'react-native-progress';
+var messages = {'food':'', 'cafe' :'', 'drinks': '', 'random':''}
 
 class Results extends React.Component{
 
@@ -21,7 +23,7 @@ class Results extends React.Component{
       ratingColor :  'aliceblue',
       rating : "0",
       active:false,
-      isMenuOpen:false
+      isMenuOpen:false,
     };
   }
 
@@ -43,7 +45,18 @@ class Results extends React.Component{
     var longitude = null;
     var price = null;
     var rating = null;
+    var progressBar = null;
+    var message = null;
     var url = 'https://www.google.com/maps?daddr=';
+
+    if( this.props.resetType ){
+      console.log( "RESULT>>>> Type = " + this.props.resetType);
+      console.log( "RESULT >>> Current state of message = " + messages[typeToReset]);
+      var typeToReset = this.props.resetType;
+      messages[typeToReset] = '';
+      message = messages[typeToReset];
+      console.log( "RESULT >>> Next state of message = " + message);
+    }
     if(  this.props.venue ){
       console.log( JSON.stringify(this.props.venue) );
       var venueVal = JSON.stringify(this.props.venue);
@@ -55,7 +68,11 @@ class Results extends React.Component{
       latitude = JSON.parse( venueVal ).location.lat;
       longitude = JSON.parse( venueVal ).location.lng;
       url = url +latitude+","+longitude
-      console.log( url );
+      messages[this.props.type] = this.props.message;
+      console.log( "RESULT>>>> Might be resetting value to " + messages[this.props.type]);
+      if( this.props.resetType === undefined || this.props.type !=this.props.resetType){
+        message = messages[this.props.type];
+      }
       rating = JSON.parse( venueVal ).rating;
       var tier = JSON.parse( venueVal ).price.tier;
       if( tier == 1 ){
@@ -77,15 +94,25 @@ class Results extends React.Component{
           </TouchableOpacity>
         </ScrollView>
         <View style={{flex:8}}>
-        <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.name}>{name}</Text>
-        <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.category}>{category}</Text>
-        <Text numberOfLines={1} onPress={() => this.openInMaps(latitude,longitude)} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.address}>{address}</Text>
-        <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.price}>{price}</Text>
-        <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.rating}>{rating}</Text>
+          <View style={{flex:8}}>
+            <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.name}>{name}</Text>
+            <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.category}>{category}</Text>
+            <Text numberOfLines={1} onPress={() => this.openInMaps(latitude,longitude)} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.address}>{address}</Text>
+            <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.price}>{price}</Text>
+            <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.rating}>{rating}</Text>
+          </View>
+          <View style={{flex:1,alignItems:'center'}}>
+            <Text>{message}</Text>
+          </View>
         </View>
       </View>
     );
   }
+
+  getProgress(){
+    return 0.3;
+  }
+
   trigger(){
     if( this.state.isMenuOpen ){
       this.context.drawer.close();
@@ -128,12 +155,6 @@ class Results extends React.Component{
       console.log( "Opening address with "+ latitude + "," + longitude);
       Linking.openURL("https://www.google.com/maps?daddr="+latitude+","+longitude);
     }
-    // <Modal style={[styles.mapModal]} position={"center"} ref={"mapModal"} isDisabled={this.state.isDisabled}>
-    //   <WebView
-    //    source={{uri:url}}
-    //    style={{marginTop: 20}}
-    //  />
-    // </Modal>
   }
 }
 
