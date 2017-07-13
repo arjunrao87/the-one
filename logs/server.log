@@ -3296,3 +3296,4 @@
 {"level":"info","message":"Retrieved 30 from response2.","timestamp":"2017-07-13T03:25:39.451Z"}
 {"level":"info","message":"Retrieved 17 from response3.","timestamp":"2017-07-13T03:25:39.453Z"}
 {"level":"info","message":"Retrieved 77 venues for request.","timestamp":"2017-07-13T03:25:39.453Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-13T03:31:14.398Z, offset = 240","timestamp":"2017-07-13T03:31:14.441Z"}

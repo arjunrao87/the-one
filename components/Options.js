@@ -20,7 +20,7 @@ var lastRandomVenue=null;
 var counters = {'food' : 0, 'drinks' : 0, 'cafe' : 0, 'random' : 0 };
 var that = null;
 var cafeInterval, foodInterval,randomInterval, drinksInterval = null;
-const TIMEOUT = 5000;
+const TIMEOUT = 120000;
 const MAX_NUMBER_OF_REQUESTS = 1;
 
 class Options extends React.Component {
@@ -106,7 +106,7 @@ class Options extends React.Component {
         that.setState( {"cafeTimer": count} );
       }
       count = count - 1;
-      if ( count == -1 ){
+      if ( count <= -1 ){
         {that.resetTimer(type)}
         if( type == "food" ){
           resetFoodCounter()
@@ -213,7 +213,7 @@ class Options extends React.Component {
   }
 
   showCached( type, venue ){
-    this.props.retrieveVenue(type, venue,"Please wait for for 2 mins before re-requesting...");
+    this.props.retrieveVenue(type, venue,"2 mins before you can request again!");
   }
 
   makeRequest(type, menuPrice, menuDistance) {
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   optionText: {
-    fontSize: 40,
+    fontSize: 32,
     textAlign: 'center',
     fontFamily: 'Iowan Old Style',
   },

@@ -88,12 +88,12 @@ class Results extends React.Component{
 
     return(
       <View style={this.getContainerStyle(rating)}>
-        <ScrollView style={{paddingTop:20, paddingLeft:20, flex:2}}>
+        <ScrollView style={{paddingTop:20, paddingLeft:20, flex:1}}>
           <TouchableOpacity>
             <Hamburger active={this.state.active} type="cross" onPress={this.trigger.bind(this)} />
           </TouchableOpacity>
         </ScrollView>
-        <View style={{flex:8}}>
+        <View style={{flex:9}}>
           <View style={{flex:8}}>
             <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.name}>{name}</Text>
             <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.category}>{category}</Text>
@@ -101,7 +101,7 @@ class Results extends React.Component{
             <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.price}>{price}</Text>
             <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.rating}>{rating}</Text>
           </View>
-          <View style={{flex:1,alignItems:'center'}}>
+          <View style={{flex:1.25,alignItems:'center'}}>
             <Text>{message}</Text>
           </View>
         </View>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Iowan Old Style',
     alignItems : 'center',
-    marginTop:50
+    marginTop:20
   },
   category:{
     fontSize: 15,
