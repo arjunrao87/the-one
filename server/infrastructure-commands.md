@@ -13,7 +13,7 @@
 
 - sudo tail -f /var/log/nginx/access_log
 
-## Easily parse and see nginx logs ( Using ngxtop )
+## Easily parse and see nginx logs ( Using ngxtop ) ( Only Real time )
 
 - Run from home directory : ngxtop
 
