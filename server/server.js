@@ -15,6 +15,7 @@ const HOST = '0.0.0.0';
 
 // App
 app.get('/', function (req, res) {
+  console.log( "Hit homepage...");
   res.send('Decision maker server is up and running...\n' );
 });
 

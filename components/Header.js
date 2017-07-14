@@ -37,11 +37,9 @@ class Header extends React.Component{
           acceptDoubleTap
           styles={{main: {shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15}}}
           onOpen={() => {
-            console.log('onopen')
             this.setState({drawerOpen: true})
           }}
           onClose={() => {
-            console.log('onclose')
             this.setState({drawerOpen: false})
           }}
           captureGestures={false}

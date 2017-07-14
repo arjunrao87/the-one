@@ -9,9 +9,10 @@ import {
   View,
   WebView,
   Linking,
+  Image
 } from 'react-native';
 import Modal from 'react-native-modalbox';
-import Hamburger from 'react-native-hamburger';
+import Hamburger from './Hamburger';
 import * as Progress from 'react-native-progress';
 
 var messages = {'food':'', 'cafe' :'', 'drinks': '', 'random':''}
@@ -51,15 +52,11 @@ class Results extends React.Component{
     var url = 'https://www.google.com/maps?daddr=';
 
     if( this.props.resetType ){
-      console.log( "RESULT>>>> Type = " + this.props.resetType);
-      console.log( "RESULT >>> Current state of message = " + messages[typeToReset]);
       var typeToReset = this.props.resetType;
       messages[typeToReset] = '';
       message = messages[typeToReset];
-      console.log( "RESULT >>> Next state of message = " + message);
     }
     if(  this.props.venue ){
-      console.log( JSON.stringify(this.props.venue) );
       var venueVal = JSON.stringify(this.props.venue);
       name = JSON.parse( venueVal ).name;
       category = JSON.parse( venueVal ).categories[0].name;
@@ -70,7 +67,6 @@ class Results extends React.Component{
       longitude = JSON.parse( venueVal ).location.lng;
       url = url +latitude+","+longitude
       messages[this.props.type] = this.props.message;
-      console.log( "RESULT>>>> Might be resetting value to " + messages[this.props.type]);
       if( this.props.resetType === undefined || this.props.type !=this.props.resetType){
         message = messages[this.props.type];
       }
@@ -89,11 +85,9 @@ class Results extends React.Component{
 
     return(
       <View style={this.getContainerStyle(rating)}>
-        <ScrollView style={{paddingTop:20, paddingLeft:20, flex:1}}>
-          <TouchableOpacity>
-            <Hamburger active={this.state.active} type="cross" onPress={this.trigger.bind(this)} />
-          </TouchableOpacity>
-        </ScrollView>
+        <View style={{paddingTop:20, paddingLeft:20, flex:1}}>
+          <Hamburger active={this.state.active} onPress={this.trigger.bind(this)} />
+        </View>
         <View style={{flex:9}}>
           <View style={{flex:8}}>
             <Text numberOfLines={1} minimumFontScale={0.9} adjustsFontSizeToFit style = {styles.name}>{name}</Text>
@@ -120,7 +114,7 @@ class Results extends React.Component{
     }
     this.setState( {active:!this.state.active});
   }
-  
+
   getContainerStyle(rating){
     var containerStyle =  null;
     console.log( "Rating = " + rating );

@@ -55,7 +55,6 @@ export default class Menu extends React.Component {
                minimumValue={1}
                step={1}
                onSlidingComplete={(value) => {
-                 console.log( "Finish Value = " + value);
                  this.setState({price:parseInt(value)})
                  if( value == 1 ){
                    this.setState( {priceRating:'$'});

@@ -39,30 +39,29 @@ class Options extends React.Component {
   }
 
   render() {
-    var timer = null
     return (
       <View style={{flex: 1}}>
-        <TouchableHighlight style={this.state.cafePressed ? styles.buttonPressed : styles.cafeButton} onPress={this.getCafeOption}>
+        <TouchableHighlight underlayColor="floralwhite" style={styles.cafeButton} onPress={this.getCafeOption}>
           <View style={styles.centerify}>
-            <Text style={styles.optionText}>Cafes</Text>
+            <Text style={this.state.cafePressed ? styles.optionTextPressed : styles.optionText }>Cafes</Text>
             <Text style={styles.timerText,styles.rightify}>{this.state.cafeTimer}</Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={this.state.randomPressed ? styles.buttonPressed : styles.randomButton} onPress={this.getRandomOption}>
+        <TouchableHighlight underlayColor="floralwhite" style={styles.randomButton} onPress={this.getRandomOption}>
           <View style={styles.centerify}>
-            <Text style={styles.optionText}>Random</Text>
+            <Text style={this.state.randomPressed ? styles.optionTextPressed : styles.optionText }>Random</Text>
             <Text style={styles.timerText,styles.rightify}>{this.state.randomTimer}</Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={this.state.foodPressed ? styles.buttonPressed : styles.foodButton} onPress={this.getFoodOption}>
+        <TouchableHighlight underlayColor="floralwhite" style={styles.foodButton} onPress={this.getFoodOption}>
           <View style={styles.centerify}>
-            <Text style={styles.optionText}>Food</Text>
+            <Text style={this.state.foodPressed ? styles.optionTextPressed : styles.optionText }>Food</Text>
             <Text style={styles.timerText,styles.rightify}>{this.state.foodTimer}</Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight style={this.state.drinksPressed ? styles.buttonPressed : styles.drinksButton} onPress={this.getDrinksOption}>
+        <TouchableHighlight underlayColor="floralwhite" style={styles.drinksButton} onPress={this.getDrinksOption}>
           <View style={styles.centerify}>
-            <Text style={styles.optionText}>Drinks</Text>
+            <Text style={this.state.drinksPressed ? styles.optionTextPressed : styles.optionText }>Drinks</Text>
             <Text style={styles.timerText,styles.rightify}>{this.state.drinksTimer}</Text>
           </View>
         </TouchableHighlight>
@@ -398,6 +397,13 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: 'center',
     fontFamily: 'Iowan Old Style',
+    textDecorationLine:'none'
+  },
+  optionTextPressed: {
+    fontSize: 32,
+    textAlign: 'center',
+    fontFamily: 'Iowan Old Style',
+    textDecorationLine:'underline'
   },
   timerText:{
     fontSize: 20,
@@ -424,12 +430,6 @@ const styles = StyleSheet.create({
   randomButton:{
     flex: 1,
     backgroundColor: 'darkorange'
-  },
-  buttonPressed:{
-    flex: 1,
-    backgroundColor: 'gainsboro',
-    borderWidth:5,
-    borderColor:'black'
   },
 });
 
