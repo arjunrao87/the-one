@@ -13,15 +13,21 @@ import {baseURL} from './App';
 var timer = require('react-native-timer');
 var cache = {};
 var lastRequest = {};
+
 var lastFoodVenue=null;
 var lastDrinksVenue = null;
 var lastCafeVenue=null;
 var lastRandomVenue=null;
-var counters = {'food' : 0, 'drinks' : 0, 'cafe' : 0, 'random' : 0 };
-var that = null;
-var cafeInterval, foodInterval,randomInterval, drinksInterval = null;
 
-const TIMEOUT = 120000;
+var counters = {'food' : 0, 'drinks' : 0, 'cafe' : 0, 'random' : 0 };
+var cafeInterval = []
+var foodInterval = []
+var randomInterval = []
+var drinksInterval = [];
+
+var that = null;
+
+const TIMEOUT = 10000;
 const MAX_NUMBER_OF_REQUESTS = 1;
 
 class Options extends React.Component {
@@ -166,6 +172,7 @@ class Options extends React.Component {
         that.setState( {"cafeTimer": count} );
       }
       count = count - 1;
+      console.log( type + " Count = " + count );
       if ( count <= -1 ){
         {that.resetTimer(type)}
         if( type == "food" ){
@@ -188,32 +195,47 @@ class Options extends React.Component {
     }, 1000 );
 
     if( type == "food" ){
-      foodInterval = typeInterval;
+      foodInterval.push(typeInterval);
     }
     if( type == "random" ){
-      randomInterval = typeInterval;
+      randomInterval.push(typeInterval);
     }
     if( type == "drinks" ){
-      drinksInterval = typeInterval;
+      drinksInterval.push(typeInterval);
     }
     if( type == "cafe" ){
-      cafeInterval = typeInterval;
+      cafeInterval.push(typeInterval);
     }
   }
 
   resetTimer(type){
     if( type == "food" ){
-      clearInterval(foodInterval)
+      console.log( "Will clear interval for " + type );
+      {this.clearIntervals(foodInterval)}
+      foodInterval = [];
     }
     if( type == "random" ){
-      clearInterval(randomInterval)
+      console.log( "Will clear interval for " + type );
+      {this.clearIntervals(randomInterval)}
+      randomInterval = [];
     }
     if( type == "drinks" ){
-      clearInterval(drinksInterval)
+      console.log( "Will clear interval for " + type );
+      {this.clearIntervals(drinksInterval)}
+      drinksInterval = [];
     }
     if( type == "cafe" ){
-      clearInterval(cafeInterval)
+      console.log( "Will clear interval for " + type );
+      {this.clearIntervals(cafeInterval)}
+      cafeInterval = [];
     }
+  }
+
+  clearIntervals(intervalType){
+    intervalType.forEach(function(interval) {
+      console.log( "Clearing interval # " + interval );
+      clearInterval( interval );
+    });
   }
 
   showCached( type, venue ){
@@ -307,37 +329,41 @@ class Options extends React.Component {
   }
 };
 
-// ----------------------------- Request Helpers ----------------------------//
-
+// Clears queried venues from back end server, which are cached in the FE
 function clearCache(){
   console.log( "Cleared cache..." );
   cache = {};
 }
 
+// Resets counter of max calls allowed for food in 2 minute duration
 function resetFoodCounter(){
   console.log( "Resetting food counter after timeout." );
   counters['food'] = 0;
   {that.props.resetMessage( "food" )}
 }
 
+// Resets counter of max calls allowed for cafe in 2 minute duration
 function resetCafeCounter(){
   console.log( "Resetting cafe counter after timeout." );
   counters['cafe'] = 0;
   that.props.resetMessage( "cafe" );
 }
 
+// Resets counter of max calls allowed for drinks in 2 minute duration
 function resetDrinksCounter(){
   console.log( "Resetting drinks counter after timeout." );
   counters['drinks'] = 0;
   that.props.resetMessage( "drinks" );
 }
 
+// Resets counter of max calls allowed for random in 2 minute duration
 function resetRandomCounter(){
   console.log( "Resetting random counter after timeout." );
   counters['random'] = 0;
   that.props.resetMessage( "random" );
 }
 
+// Gets the venue  that needs to be displayed as a result
 function getVenue( response, key ){
   var body = JSON.parse(response)._bodyInit;
   var venues = JSON.parse(body);
@@ -352,6 +378,7 @@ function getVenue( response, key ){
   return venue;
 }
 
+// Random venue selector from the list of venues retrieved
 function getOneVenue( venues ){
   var item = Math.floor(Math.random()*venues.length);
   var venue = null;
@@ -362,6 +389,7 @@ function getOneVenue( venues ){
   return venue;
 }
 
+// Makes call to backend with user parameters to display the venue required
 function makePostRequest(url,radius,price,latitude,longitude){
   console.log( "Making request to " + url );
   return fetch(url, {
@@ -381,6 +409,8 @@ function makePostRequest(url,radius,price,latitude,longitude){
     return resp;
   });
 }
+
+//------------------------------ Styling --------------------------//
 
 const styles = StyleSheet.create({
   centerify: {

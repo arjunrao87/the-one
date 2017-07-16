@@ -22,6 +22,7 @@ export default class ControlPanel extends React.Component {
   }
 
   venueCallback = (type, venue, message) => {
+    console.log( "Received " + message + " for type = " + type + ", venue = " + venue );
     this.setState({type:type, venue:venue, message:message});
   }
 

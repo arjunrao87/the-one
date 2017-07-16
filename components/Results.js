@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modalbox';
 import Hamburger from './Hamburger';
-import * as Progress from 'react-native-progress';
 
 var messages = {'food':'', 'cafe' :'', 'drinks': '', 'random':''}
 
@@ -22,8 +21,6 @@ class Results extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      ratingColor :  'aliceblue',
-      rating : "0",
       active:false,
       isMenuOpen:false,
     };
@@ -38,7 +35,8 @@ class Results extends React.Component{
   };
 
   render(){
-    let content = null;
+
+    // Venue related variables
     var name = null;
     var category = null;
     var address = null;
@@ -47,15 +45,32 @@ class Results extends React.Component{
     var longitude = null;
     var price = null;
     var rating = null;
-    var progressBar = null;
+
+    // Message related variables
     var message = null;
+    var type = this.props.type;
+    var resetMessageType = this.props.resetType;
+    var receivedMessage = this.props.message;
     var url = 'https://www.google.com/maps?daddr=';
 
-    if( this.props.resetType ){
-      var typeToReset = this.props.resetType;
-      messages[typeToReset] = '';
-      message = messages[typeToReset];
+    console.log( "Displaying results for type = " + type );
+
+    // Figuring out whether or not to display 2 min warning.
+    if( receivedMessage ){
+      console.log( "Received message for " + type + " = " + receivedMessage );
+      message = receivedMessage;
+      messages[type] = message;
+    } else{
+          console.log( "Displaying cached message for " + type);
+          message = messages[type];
     }
+    if( resetMessageType && type == resetMessageType ){
+      console.log( "Resetting message for " + resetMessageType);
+      message = '';
+      messages[resetMessageType] = message;
+    }
+
+    // Displaying the result for the requested option
     if(  this.props.venue ){
       var venueVal = JSON.stringify(this.props.venue);
       name = JSON.parse( venueVal ).name;
@@ -66,10 +81,6 @@ class Results extends React.Component{
       latitude = JSON.parse( venueVal ).location.lat;
       longitude = JSON.parse( venueVal ).location.lng;
       url = url +latitude+","+longitude
-      messages[this.props.type] = this.props.message;
-      if( this.props.resetType === undefined || this.props.type !=this.props.resetType){
-        message = messages[this.props.type];
-      }
       rating = JSON.parse( venueVal ).rating;
       var tier = JSON.parse( venueVal ).price.tier;
       if( tier == 1 ){
@@ -86,7 +97,7 @@ class Results extends React.Component{
     return(
       <View style={this.getContainerStyle(rating)}>
         <View style={{paddingTop:20, paddingLeft:20, flex:1}}>
-          <Hamburger active={this.state.active} onPress={this.trigger.bind(this)} />
+          <Hamburger active={this.state.active} onPress={this.openMenu.bind(this)} />
         </View>
         <View style={{flex:9}}>
           <View style={{flex:8}}>
@@ -104,7 +115,8 @@ class Results extends React.Component{
     );
   }
 
-  trigger(){
+  // Open side menu
+  openMenu(){
     if( this.state.isMenuOpen ){
       this.context.drawer.close();
       this.setState({isMenuOpen:false});
@@ -115,6 +127,7 @@ class Results extends React.Component{
     this.setState( {active:!this.state.active});
   }
 
+  // Method to determine the background of the results screen based on rating
   getContainerStyle(rating){
     var containerStyle =  null;
     console.log( "Rating = " + rating );
@@ -142,6 +155,7 @@ class Results extends React.Component{
     return containerStyle;
   }
 
+  // Open address of venue in google maps( out of app ) with navigation to the place
   openInMaps(latitude,longitude){
     if ( latitude && longitude ){
       console.log( "Opening address with "+ latitude + "," + longitude);
