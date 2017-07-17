@@ -1,4 +1,3 @@
-import Config from 'react-native-config'
 import React from 'react';
 import {
   Platform,
@@ -8,7 +7,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import {baseURL} from './App';
+import {baseURL} from '../App';
 
 var timer = require('react-native-timer');
 var cache = {};
@@ -27,7 +26,7 @@ var drinksInterval = [];
 
 var that = null;
 
-const TIMEOUT = 10000;
+const TIMEOUT = 120000;
 const MAX_NUMBER_OF_REQUESTS = 1;
 
 class Options extends React.Component {

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Font } from 'expo';
 import {
   PropTypes,
   ScrollView,
@@ -14,7 +14,7 @@ import {
   Button,
 } from 'react-native'
 import Modal from 'react-native-modalbox';
-import {baseURL} from './App';
+import {baseURL} from '../App';
 
 export default class Menu extends React.Component {
 
@@ -31,7 +31,11 @@ export default class Menu extends React.Component {
       text:''
     };
   }
-
+  componentDidMount() {
+    Font.loadAsync({
+      'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
+    });
+  }
   render() {
     return (
       <View style={{flex:1}}>
@@ -165,7 +169,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily:'Avenir'
+    fontFamily:'space-mono'
   },
   rating:{
     paddingTop: 40,
@@ -173,7 +177,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily:'Avenir'
+    fontFamily:'space-mono'
   },
   about:{
     paddingTop: 40,
@@ -181,7 +185,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily:'Avenir'
+    fontFamily:'space-mono'
   },
   btn:{
     paddingTop:40

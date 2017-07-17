@@ -6,8 +6,8 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import Header from './Header';
-import {Permissions,Location} from 'expo';
+import Header from './components/Header';
+import {Permissions,Location,Constants} from 'expo';
 
 var baseURL = //"http://localhost:8080/"
                 "http://104.236.66.151:80/"
