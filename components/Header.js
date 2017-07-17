@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
   }
 });
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Font } from 'expo';
 import {
   PropTypes,
   ScrollView,
@@ -31,11 +30,7 @@ export default class Menu extends React.Component {
       text:''
     };
   }
-  componentDidMount() {
-    Font.loadAsync({
-      'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
-    });
-  }
+
   render() {
     return (
       <View style={{flex:1}}>
@@ -150,7 +145,7 @@ const styles = StyleSheet.create({
   aboutUsText :{
     fontSize: 20,
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
     padding:15,
     marginTop: 10,
     paddingBottom:30
@@ -161,7 +156,7 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     fontSize: 20,
     padding:15,
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
   },
   menuText:{
     paddingTop:20,

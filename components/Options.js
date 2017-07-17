@@ -425,18 +425,18 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 32,
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
     textDecorationLine:'none'
   },
   optionTextPressed: {
     fontSize: 32,
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
     textDecorationLine:'underline'
   },
   timerText:{
     fontSize: 20,
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
     paddingBottom:30,
     paddingRight:10,
     justifyContent: 'center',

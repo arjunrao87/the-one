@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Header from './components/Header';
 import {Permissions,Location,Constants} from 'expo';
+import { Font } from 'expo';
 
 var baseURL = //"http://localhost:8080/"
                 "http://104.236.66.151:80/"
@@ -27,6 +28,14 @@ export default class App extends React.Component {
     } else {
       this._getLocationAsync();
     }
+    this.loadFonts();
+  }
+
+  loadFonts = async() => {
+    await Font.loadAsync({
+      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+    });
+    this.setState({ isReady: true });
   }
 
   _getLocationAsync = async () => {
@@ -66,6 +75,9 @@ export default class App extends React.Component {
   }
 
   render() {
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+    }
     return (
       <View style={{flex: 1}}>
         <Header location={this.state.location}/>

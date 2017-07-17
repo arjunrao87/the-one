@@ -168,33 +168,33 @@ const styles = StyleSheet.create({
   name:{
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
     alignItems : 'center',
     marginTop:20
   },
   category:{
     fontSize: 15,
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
     marginTop: 10,
   },
   address:{
     fontSize: 25,
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
     marginTop: 10,
     textDecorationLine:'underline'
   },
   rating:{
     fontSize: 25,
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
     marginTop: 10,
   },
   price:{
     fontSize: 25,
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
     marginTop: 20,
   },
   mapModal:{
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily: 'Iowan Old Style',
+    fontFamily: 'space-mono',
   },
 });
 
