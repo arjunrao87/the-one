@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import {baseURL} from '../App';
+import {font} from '../App';
 
 var timer = require('react-native-timer');
 var cache = {};
@@ -26,7 +27,7 @@ var drinksInterval = [];
 
 var that = null;
 
-const TIMEOUT = 120000;
+const TIMEOUT = 10000;
 const MAX_NUMBER_OF_REQUESTS = 1;
 
 class Options extends React.Component {
@@ -284,6 +285,7 @@ class Options extends React.Component {
       }
       makePostRequest(baseURL + type, menuDistance, checkForPrice, latitude, longitude )
       .then((response) => {
+        console.log( JSON.stringify( response ));
         venue = getVenue(response, type);
         if( type == "food"){
           lastFoodVenue = venue;
@@ -365,6 +367,7 @@ function resetRandomCounter(){
 // Gets the venue  that needs to be displayed as a result
 function getVenue( response, key ){
   var body = JSON.parse(response)._bodyInit;
+  console.log( response );
   var venues = JSON.parse(body);
   var venue = null;
   if( venues ){
@@ -425,18 +428,18 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 32,
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
     textDecorationLine:'none'
   },
   optionTextPressed: {
     fontSize: 32,
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
     textDecorationLine:'underline'
   },
   timerText:{
     fontSize: 20,
-    fontFamily: 'space-mono',
+    fontFamily: font,
     paddingBottom:30,
     paddingRight:10,
     justifyContent: 'center',

@@ -9,6 +9,7 @@ import {
 import Drawer from 'react-native-drawer'
 import Menu from './Menu'
 import Main from './Main'
+import {font} from '../App';
 
 class Header extends React.Component{
     state={
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
   }
 });
 

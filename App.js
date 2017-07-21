@@ -10,7 +10,8 @@ import Header from './components/Header';
 import {Permissions,Location,Constants} from 'expo';
 import { Font } from 'expo';
 
-var baseURL = //"http://localhost:8080/"
+var font = (Platform.OS === 'ios') ? "Iowan Old Style" : "space-mono"
+var baseURL = //(Platform.OS === 'ios') ? "http://localhost:8080/" : "http://127.0.0.1:8080/"
                 "http://104.236.66.151:80/"
 
 export default class App extends React.Component {
@@ -105,4 +106,4 @@ export default class App extends React.Component {
   }
 }
 
-export {baseURL};
+export {baseURL,font};

@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import Modal from 'react-native-modalbox';
 import {baseURL} from '../App';
+import {font} from '../App';
 
 export default class Menu extends React.Component {
 
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
   aboutUsText :{
     fontSize: 20,
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
     padding:15,
     marginTop: 10,
     paddingBottom:30
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     fontSize: 20,
     padding:15,
-    fontFamily: 'space-mono',
+    fontFamily: font,
   },
   menuText:{
     paddingTop:20,
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily:'space-mono'
+    fontFamily:font
   },
   rating:{
     paddingTop: 40,
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily:'space-mono'
+    fontFamily:font
   },
   about:{
     paddingTop: 40,
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily:'space-mono'
+    fontFamily:font
   },
   btn:{
     paddingTop:40

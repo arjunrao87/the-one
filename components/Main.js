@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  PropTypes,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,6 +8,7 @@ import {
 } from 'react-native'
 import Results from './Results';
 import Options from './Options';
+import PropTypes from 'prop-types';
 
 export default class ControlPanel extends React.Component {
 
@@ -30,7 +30,7 @@ export default class ControlPanel extends React.Component {
   }
 
   static contextTypes = {
-    drawer: React.PropTypes.object.isRequired,
+    drawer: PropTypes.object.isRequired,
   };
 
   render() {

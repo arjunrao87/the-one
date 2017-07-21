@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modalbox';
 import Hamburger from './Hamburger';
+import PropTypes from 'prop-types';
+import {font} from '../App';
 
 var messages = {'food':'', 'cafe' :'', 'drinks': '', 'random':''}
 
@@ -31,7 +33,7 @@ class Results extends React.Component{
   }
 
   static contextTypes = {
-    drawer: React.PropTypes.object.isRequired,
+    drawer: PropTypes.object.isRequired,
   };
 
   render(){
@@ -96,7 +98,7 @@ class Results extends React.Component{
 
     return(
       <View style={this.getContainerStyle(rating)}>
-        <View style={{paddingTop:20, paddingLeft:20, flex:1}}>
+        <View style={{paddingTop:30, paddingLeft:30, flex:1}}>
           <Hamburger active={this.state.active} onPress={this.openMenu.bind(this)} />
         </View>
         <View style={{flex:9}}>
@@ -168,33 +170,33 @@ const styles = StyleSheet.create({
   name:{
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
     alignItems : 'center',
     marginTop:20
   },
   category:{
     fontSize: 15,
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
     marginTop: 10,
   },
   address:{
     fontSize: 25,
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
     marginTop: 10,
     textDecorationLine:'underline'
   },
   rating:{
     fontSize: 25,
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
     marginTop: 10,
   },
   price:{
     fontSize: 25,
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
     marginTop: 20,
   },
   mapModal:{
@@ -210,7 +212,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily: 'space-mono',
+    fontFamily: font,
   },
 });
 
