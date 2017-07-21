@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Platform,
   PropTypes,
   ScrollView,
   StyleSheet,
@@ -15,6 +16,7 @@ import {
 import Modal from 'react-native-modalbox';
 import {baseURL} from '../App';
 import {font} from '../App';
+var fontSize = (Platform.OS === 'ios') ? 20 : 14;
 
 export default class Menu extends React.Component {
 
@@ -89,7 +91,9 @@ export default class Menu extends React.Component {
          <Button title="Send" onPress={() => this.makePostRequest(baseURL+'feedback',this.state.text)} style={styles.btn}></Button>
         </Modal>
         <Modal style={[styles.aboutUsModal]} position={"center"} ref={"aboutModal"} isDisabled={this.state.isDisabled}>
-         <Text style={styles.aboutUsText}>Tired by countless recommendations and filters to choose from, this app was built by Arjun Rao. The goal was to prevent the app-equivalent of 'deer caught in headlights'. Hope you enjoy it! </Text>
+         <ScrollView>
+           <Text style={styles.aboutUsText}>Tired by countless recommendations and filters to choose from, this app was built by Arjun Rao. The goal was to prevent the app-equivalent of 'deer caught in headlights' </Text>
+         </ScrollView>
          <Button title="Visit Developer Site" style={{ paddingTop:30 }} onPress={() => {this.openHomePage()}} style={styles.btn}></Button>
         </Modal>
       </View>
@@ -120,7 +124,7 @@ const styles = StyleSheet.create({
     padding: 40,
   },
   aboutUsModal:{
-    height: 400,
+    height: 300,
     width: 250,
     borderRadius: 4,
     borderWidth: 0.5,
@@ -128,23 +132,15 @@ const styles = StyleSheet.create({
     backgroundColor:'cornsilk'
   },
   feedbackModal:{
-    height: 400,
+    height: 300,
     width: 250,
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
     backgroundColor:'cornsilk'
   },
-  useAppModal:{
-    height: 300,
-    width: 300,
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-    backgroundColor:'cornsilk'
-  },
   aboutUsText :{
-    fontSize: 20,
+    fontSize: fontSize,
     textAlign: 'center',
     fontFamily: font,
     padding:15,
@@ -155,7 +151,7 @@ const styles = StyleSheet.create({
     height: 250,
     borderColor: 'gray',
     borderWidth: 10,
-    fontSize: 20,
+    fontSize: fontSize,
     padding:15,
     fontFamily: font,
   },
