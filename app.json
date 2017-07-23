@@ -10,14 +10,18 @@
     "primaryColor": "#cccccc",
     "icon": "./assets/icons/app.png",
     "loading": {
-      "icon": "./assets/icons/loading.png",
+      "icon": "./assets/icons/loading-icon.png",
       "hideExponentText": false
     },
     "packagerOpts": {
       "assetExts": ["ttf", "mp4"]
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.rnplay.exp",
+    },
+    "android": {
+      "package": "org.rnplay.exp",
     }
   }
 }

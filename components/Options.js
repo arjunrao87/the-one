@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {baseURL} from '../App';
 import {font} from '../App';
+import {Permissions,Location,Constants} from 'expo';
 
 var timer = require('react-native-timer');
 var cache = {};
@@ -29,6 +30,7 @@ var that = null;
 
 const TIMEOUT = 120000;
 const MAX_NUMBER_OF_REQUESTS = 1;
+const CACHE_CLEAR_MINS = 4;
 
 class Options extends React.Component {
 
@@ -40,7 +42,7 @@ class Options extends React.Component {
       foodTimer : null,drinksTimer : null,cafeTimer : null,randomTimer : null,
       cafePressed :false,foodPressed :false,drinksPressed :false,randomPressed :false,
     };
-    setInterval(clearCache, 600*1000);
+    setInterval(clearCache, CACHE_CLEAR_MINS * 60 * 1000);
     that = this;
   }
 
@@ -242,9 +244,11 @@ class Options extends React.Component {
     this.props.retrieveVenue(type, venue,"2 mins before you can request again!");
   }
 
-  makeRequest(type, menuPrice, menuDistance) {
-    {var latitude  = this.getLatitude()}
-    {var longitude = this.getLongitude()}
+  async makeRequest(type, menuPrice, menuDistance) {
+    var currentLocation = await Location.getCurrentPositionAsync({})
+    console.log( "Current location = " + JSON.stringify( currentLocation) );
+    {var latitude  = this.getLatitude(currentLocation)}
+    {var longitude = this.getLongitude(currentLocation)}
     console.log( "Requesting data for " + type );
     var venue = null;
     if( ( menuDistance != lastRequest.distance) && (menuPrice != lastRequest.price) ){
@@ -309,20 +313,19 @@ class Options extends React.Component {
     }
   }
 
-  getLatitude=()=>{
-    if( this.props.location && this.props.location.coords.latitude ){
-      console.log( "Getting actual user latitude - " + this.props.location.coords.latitude );
-      return this.props.location.coords.latitude;
+  getLatitude=(currentLocation)=>{
+    if( currentLocation && currentLocation.coords.latitude ){
+      console.log( "Getting actual user latitude - " + currentLocation.coords.latitude );
+      return currentLocation.coords.latitude;
     } else{
       console.log( "Getting fake user latitude - " + this.state.latitude );
       return this.state.latitude;
     }
   }
-
-  getLongitude(){
-    if( this.props.location && this.props.location.coords.longitude ){
-      console.log( "Getting actual user longitude - " + this.props.location.coords.longitude );
-      return this.props.location.coords.longitude;
+  getLongitude(currentLocation){
+    if( currentLocation && currentLocation.coords.longitude ){
+      console.log( "Getting actual user longitude - " + currentLocation.coords.longitude );
+      return currentLocation.coords.longitude;
     } else{
       console.log( "Getting fake user longitude - " + this.state.longitude );
       return this.state.longitude;
