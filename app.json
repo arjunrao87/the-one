@@ -4,7 +4,7 @@
     "description": "Removes choices",
     "slug": "decision-maker",
     "privacy": "public",
-    "sdkVersion": "18.0.0",
+    "sdkVersion": "19.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
@@ -18,10 +18,11 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "org.rnplay.exp",
+      "bundleIdentifier": "org.tnc.theone",
     },
     "android": {
-      "package": "org.rnplay.exp",
+      "package": "org.tnc.theone",
+      "permission" : ["ACCESS_FINE_LOCATION"]
     }
   }
 }
