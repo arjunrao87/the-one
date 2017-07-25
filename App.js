@@ -11,7 +11,7 @@ import {Permissions,Location,Constants} from 'expo';
 import { Font } from 'expo';
 
 var font = (Platform.OS === 'ios') ? "Iowan Old Style" : "space-mono"
-var baseURL = //(Platform.OS === 'ios') ? "http://localhost:8080/" : "http://127.0.0.1:8080/"
+var baseURL = //"http://localhost:8080/"
                 "http://104.236.66.151:80/"
 
 export default class App extends React.Component {
@@ -48,7 +48,8 @@ export default class App extends React.Component {
     } else{
       console.log( "Permission to access location was granted");
     }
-    let location = await Location.getCurrentPositionAsync({});
+    //let location = await Location.getCurrentPositionAsync({});
+    let {location} = await Location.watchPositionAsync({enableHighAccuracy:true, distanceInterval:20});
     this.setState({ location:location });
     {this.sendMetrics( location );}
   };

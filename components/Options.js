@@ -245,10 +245,13 @@ class Options extends React.Component {
   }
 
   async makeRequest(type, menuPrice, menuDistance) {
-    var currentLocation = await Location.getCurrentPositionAsync({})
-    console.log( "Current location = " + JSON.stringify( currentLocation) );
-    {var latitude  = this.getLatitude(currentLocation)}
-    {var longitude = this.getLongitude(currentLocation)}
+    //console.log( "About to make location request" );
+    //let currentLocation = await Location.getCurrentPositionAsync({})
+    //console.log( "Current location = " + JSON.stringify( currentLocation) );
+    // {var latitude  = this.getLatitude(currentLocation)}
+    // {var longitude = this.getLongitude(currentLocation)}
+    {var latitude  = this.getLatitude()}
+    {var longitude = this.getLongitude()}
     console.log( "Requesting data for " + type );
     var venue = null;
     if( ( menuDistance != lastRequest.distance) && (menuPrice != lastRequest.price) ){
@@ -289,7 +292,6 @@ class Options extends React.Component {
       }
       makePostRequest(baseURL + type, menuDistance, checkForPrice, latitude, longitude )
       .then((response) => {
-        console.log( JSON.stringify( response ));
         venue = getVenue(response, type);
         if( type == "food"){
           lastFoodVenue = venue;
@@ -310,6 +312,26 @@ class Options extends React.Component {
       });
     } else{
       this.props.retrieveVenue( type, venue )
+    }
+  }
+
+  getLatitude=()=>{
+      if( this.props.location && this.props.location.coords.latitude ){
+        console.log( "Getting actual user latitude - " + this.props.location.coords.latitude );
+        return this.props.location.coords.latitude;
+      } else{
+        console.log( "Getting fake user latitude - " + this.state.latitude );
+        return this.state.latitude;
+      }
+    }
+
+  getLongitude(){
+    if( this.props.location && this.props.location.coords.longitude ){
+      console.log( "Getting actual user longitude - " + this.props.location.coords.longitude );
+      return this.props.location.coords.longitude;
+    } else{
+      console.log( "Getting fake user longitude - " + this.state.longitude );
+      return this.state.longitude;
     }
   }
 

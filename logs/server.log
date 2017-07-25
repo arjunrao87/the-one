@@ -3757,3 +3757,84 @@
 {"level":"info","message":"Retrieved 30 from response2.","timestamp":"2017-07-21T03:19:34.065Z"}
 {"level":"info","message":"Retrieved 18 from response3.","timestamp":"2017-07-21T03:19:34.070Z"}
 {"level":"info","message":"Retrieved 78 venues for request.","timestamp":"2017-07-21T03:19:34.070Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T00:56:02.479Z, offset = 240","timestamp":"2017-07-25T00:56:02.707Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T00:57:41.696Z, offset = 240","timestamp":"2017-07-25T00:57:41.734Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:03:37.507Z, offset = 240","timestamp":"2017-07-25T01:03:37.554Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:10:18.440Z, offset = 240","timestamp":"2017-07-25T01:10:18.468Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:29:23.027Z, offset = 240","timestamp":"2017-07-25T01:29:23.081Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:29:40.072Z, offset = 240","timestamp":"2017-07-25T01:29:40.104Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:30:05.642Z, offset = 240","timestamp":"2017-07-25T01:30:05.676Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:30:21.787Z, offset = 240","timestamp":"2017-07-25T01:30:21.812Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:36:53.731Z, offset = 240","timestamp":"2017-07-25T01:36:53.774Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:37:56.264Z, offset = 240","timestamp":"2017-07-25T01:37:56.299Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:37:56.320Z, offset = 240","timestamp":"2017-07-25T01:37:56.350Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:44:12.001Z, offset = 240","timestamp":"2017-07-25T01:44:12.030Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:45:23.213Z, offset = 240","timestamp":"2017-07-25T01:45:23.238Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:50:48.178Z, offset = 240","timestamp":"2017-07-25T01:50:48.203Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:51:15.819Z, offset = 240","timestamp":"2017-07-25T01:51:15.849Z"}
+{"level":"info","message":"Received request with latitude = 37.785834, longitude = -122.406417, price = 1,2, radius = 500","timestamp":"2017-07-25T01:51:17.013Z"}
+{"level":"info","message":"Received request for ''cafe''","timestamp":"2017-07-25T01:51:17.013Z"}
+{"level":"info","message":"Making request 1 to https://api.foursquare.com/v2/venues/explore?ll=37.785834,-122.406417&intent=browse&price=1,2&radius=500&query=coffee&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T01:51:17.014Z"}
+{"level":"info","message":"Making request 2 to https://api.foursquare.com/v2/venues/explore?ll=37.785834,-122.406417&intent=browse&price=1,2&radius=500&query=tea&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T01:51:17.607Z"}
+{"level":"info","message":"Retrieved 30 from response1.","timestamp":"2017-07-25T01:51:17.974Z"}
+{"level":"info","message":"Retrieved 23 from response2.","timestamp":"2017-07-25T01:51:17.975Z"}
+{"level":"info","message":"Retrieved 53 venues for request.","timestamp":"2017-07-25T01:51:17.976Z"}
+{"level":"info","message":"Received request with latitude = 37.785834, longitude = -122.406417, price = 1,2, radius = 500","timestamp":"2017-07-25T01:51:19.357Z"}
+{"level":"info","message":"Received request for ''trending''","timestamp":"2017-07-25T01:51:19.358Z"}
+{"level":"info","message":"Making request 1 to https://api.foursquare.com/v2/venues/explore?ll=37.785834,-122.406417&intent=browse&price=1,2&radius=500&section=trending&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T01:51:19.359Z"}
+{"level":"info","message":"Retrieved 30 from response1.","timestamp":"2017-07-25T01:51:20.100Z"}
+{"level":"info","message":"Retrieved 30 venues for request.","timestamp":"2017-07-25T01:51:20.100Z"}
+{"level":"info","message":"Received request with latitude = 37.785834, longitude = -122.406417, price = 1,2, radius = 500","timestamp":"2017-07-25T01:51:22.386Z"}
+{"level":"info","message":"Received request for ''food''","timestamp":"2017-07-25T01:51:22.386Z"}
+{"level":"info","message":"Making request 1 to https://api.foursquare.com/v2/venues/explore?ll=37.785834,-122.406417&intent=browse&price=1,2&radius=500&query=food&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T01:51:22.386Z"}
+{"level":"info","message":"Making request 2 to https://api.foursquare.com/v2/venues/explore?ll=37.785834,-122.406417&intent=browse&price=1,2&radius=500&query=restaurant&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T01:51:23.684Z"}
+{"level":"info","message":"Received request with latitude = 37.785834, longitude = -122.406417, price = 1,2, radius = 500","timestamp":"2017-07-25T01:51:23.961Z"}
+{"level":"info","message":"Received request for ''drinks''","timestamp":"2017-07-25T01:51:23.961Z"}
+{"level":"info","message":"Making request 1 to https://api.foursquare.com/v2/venues/explore?ll=37.785834,-122.406417&intent=browse&price=1,2&radius=500&query=bars&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T01:51:23.961Z"}
+{"level":"info","message":"Retrieved 30 from response1.","timestamp":"2017-07-25T01:51:24.799Z"}
+{"level":"info","message":"Retrieved 30 from response2.","timestamp":"2017-07-25T01:51:24.821Z"}
+{"level":"info","message":"Retrieved 60 venues for request.","timestamp":"2017-07-25T01:51:24.821Z"}
+{"level":"info","message":"Making request 2 to https://api.foursquare.com/v2/venues/explore?ll=37.785834,-122.406417&intent=browse&price=1,2&radius=500&query=beer&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T01:51:24.964Z"}
+{"level":"info","message":"Making request 3 to https://api.foursquare.com/v2/venues/explore?ll=37.785834,-122.406417&intent=browse&price=1,2&radius=500&query=wine&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T01:51:26.300Z"}
+{"level":"info","message":"Retrieved 30 from response1.","timestamp":"2017-07-25T01:51:27.349Z"}
+{"level":"info","message":"Retrieved 30 from response2.","timestamp":"2017-07-25T01:51:27.352Z"}
+{"level":"info","message":"Retrieved 18 from response3.","timestamp":"2017-07-25T01:51:27.353Z"}
+{"level":"info","message":"Retrieved 78 venues for request.","timestamp":"2017-07-25T01:51:27.353Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = 37.785834, longitude = -122.406417, os = ios, osVersion = null, date = 2017-07-25T01:56:10.439Z, offset = 240","timestamp":"2017-07-25T01:56:10.483Z"}
+{"level":"info","message":"Received request with latitude = 40.7128, longitude = -74.0059, price = 1,2, radius = 500","timestamp":"2017-07-25T02:01:46.069Z"}
+{"level":"info","message":"Received request for ''cafe''","timestamp":"2017-07-25T02:01:46.069Z"}
+{"level":"info","message":"Making request 1 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&query=coffee&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:01:46.069Z"}
+{"level":"info","message":"Making request 2 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&query=tea&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:01:46.650Z"}
+{"level":"info","message":"Retrieved 27 from response1.","timestamp":"2017-07-25T02:01:47.006Z"}
+{"level":"info","message":"Retrieved 27 from response2.","timestamp":"2017-07-25T02:01:47.009Z"}
+{"level":"info","message":"Retrieved 54 venues for request.","timestamp":"2017-07-25T02:01:47.009Z"}
+{"level":"info","message":"Received request with latitude = 40.7128, longitude = -74.0059, price = 1,2, radius = 500","timestamp":"2017-07-25T02:01:48.948Z"}
+{"level":"info","message":"Received request for ''trending''","timestamp":"2017-07-25T02:01:48.948Z"}
+{"level":"info","message":"Making request 1 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&section=trending&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:01:48.949Z"}
+{"level":"info","message":"Retrieved 30 from response1.","timestamp":"2017-07-25T02:01:49.550Z"}
+{"level":"info","message":"Retrieved 30 venues for request.","timestamp":"2017-07-25T02:01:49.551Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = null, longitude = null, os = ios, osVersion = null, date = 2017-07-25T02:13:53.153Z, offset = 240","timestamp":"2017-07-25T02:13:53.227Z"}
+{"level":"info","message":"Received request with latitude = 40.7128, longitude = -74.0059, price = 1,2, radius = 500","timestamp":"2017-07-25T02:16:15.646Z"}
+{"level":"info","message":"Received request for ''drinks''","timestamp":"2017-07-25T02:16:15.647Z"}
+{"level":"info","message":"Making request 1 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&query=bars&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:16:15.654Z"}
+{"level":"info","message":"Making request 2 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&query=beer&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:16:16.530Z"}
+{"level":"info","message":"Making request 3 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&query=wine&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:16:17.399Z"}
+{"level":"info","message":"Retrieved 30 from response1.","timestamp":"2017-07-25T02:16:18.354Z"}
+{"level":"info","message":"Retrieved 30 from response2.","timestamp":"2017-07-25T02:16:18.363Z"}
+{"level":"info","message":"Retrieved 18 from response3.","timestamp":"2017-07-25T02:16:18.366Z"}
+{"level":"info","message":"Retrieved 78 venues for request.","timestamp":"2017-07-25T02:16:18.367Z"}
+{"level":"info","message":"Received request with latitude = 40.7128, longitude = -74.0059, price = 1,2, radius = 500","timestamp":"2017-07-25T02:16:21.368Z"}
+{"level":"info","message":"Received request for ''food''","timestamp":"2017-07-25T02:16:21.369Z"}
+{"level":"info","message":"Making request 1 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&query=food&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:16:21.369Z"}
+{"level":"info","message":"Making request 2 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&query=restaurant&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:16:22.048Z"}
+{"level":"info","message":"Retrieved 30 from response1.","timestamp":"2017-07-25T02:16:22.705Z"}
+{"level":"info","message":"Retrieved 30 from response2.","timestamp":"2017-07-25T02:16:22.713Z"}
+{"level":"info","message":"Retrieved 60 venues for request.","timestamp":"2017-07-25T02:16:22.714Z"}
+{"level":"info","message":"Received User Info ==> Latitude  = null, longitude = null, os = ios, osVersion = null, date = 2017-07-25T02:20:36.698Z, offset = 240","timestamp":"2017-07-25T02:20:36.730Z"}
+{"level":"info","message":"Received request with latitude = 40.7128, longitude = -74.0059, price = 1,2, radius = 500","timestamp":"2017-07-25T02:20:52.401Z"}
+{"level":"info","message":"Received request for ''cafe''","timestamp":"2017-07-25T02:20:52.402Z"}
+{"level":"info","message":"Making request 1 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&query=coffee&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:20:52.402Z"}
+{"level":"info","message":"Making request 2 to https://api.foursquare.com/v2/venues/explore?ll=40.7128,-74.0059&intent=browse&price=1,2&radius=500&query=tea&client_id=KSSXQD155NJQGZFD3WQ5SRVZIQUBH3FMMCN0PWYMQW1QGUNI&client_secret=OSAT4UI0C0Z3CPJ1BIGSCOHODNPFJRGU31ZO4RQR3DLYUHGF&v=20170101","timestamp":"2017-07-25T02:20:52.835Z"}
+{"level":"info","message":"Retrieved 27 from response1.","timestamp":"2017-07-25T02:20:53.255Z"}
+{"level":"info","message":"Retrieved 27 from response2.","timestamp":"2017-07-25T02:20:53.258Z"}
+{"level":"info","message":"Retrieved 54 venues for request.","timestamp":"2017-07-25T02:20:53.258Z"}
