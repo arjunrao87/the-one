@@ -37,7 +37,8 @@ class Options extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      latitude : "40.7128",longitude : "-74.0059",location: null,
+      //latitude : "40.7128",longitude : "-74.0059",
+      location: null,
       errorMessage: null,
       foodTimer : null,drinksTimer : null,cafeTimer : null,randomTimer : null,
       cafePressed :false,foodPressed :false,drinksPressed :false,randomPressed :false,
@@ -245,13 +246,8 @@ class Options extends React.Component {
   }
 
   async makeRequest(type, menuPrice, menuDistance) {
-    //console.log( "About to make location request" );
-    //let currentLocation = await Location.getCurrentPositionAsync({})
-    //console.log( "Current location = " + JSON.stringify( currentLocation) );
-    // {var latitude  = this.getLatitude(currentLocation)}
-    // {var longitude = this.getLongitude(currentLocation)}
-    {var latitude  = this.getLatitude()}
-    {var longitude = this.getLongitude()}
+    var latitude  = this.getLatitude()
+    var longitude = this.getLongitude()
     console.log( "Requesting data for " + type );
     var venue = null;
     if( ( menuDistance != lastRequest.distance) && (menuPrice != lastRequest.price) ){
@@ -334,25 +330,6 @@ class Options extends React.Component {
       return this.state.longitude;
     }
   }
-
-  getLatitude=(currentLocation)=>{
-    if( currentLocation && currentLocation.coords.latitude ){
-      console.log( "Getting actual user latitude - " + currentLocation.coords.latitude );
-      return currentLocation.coords.latitude;
-    } else{
-      console.log( "Getting fake user latitude - " + this.state.latitude );
-      return this.state.latitude;
-    }
-  }
-  getLongitude(currentLocation){
-    if( currentLocation && currentLocation.coords.longitude ){
-      console.log( "Getting actual user longitude - " + currentLocation.coords.longitude );
-      return currentLocation.coords.longitude;
-    } else{
-      console.log( "Getting fake user longitude - " + this.state.longitude );
-      return this.state.longitude;
-    }
-  }
 };
 
 // Clears queried venues from back end server, which are cached in the FE
@@ -392,7 +369,10 @@ function resetRandomCounter(){
 // Gets the venue  that needs to be displayed as a result
 function getVenue( response, key ){
   var body = JSON.parse(response)._bodyInit;
-  console.log( response );
+  if( body.includes("Bad Gateway") ){
+    console.log( "Unable to make request..." );
+    return "Could not access location data..."
+  }
   var venues = JSON.parse(body);
   var venue = null;
   if( venues ){

@@ -73,6 +73,9 @@ class Results extends React.Component{
     }
 
     // Displaying the result for the requested option
+    if (typeof this.props.venue === 'string' || this.props.venue instanceof String){
+      category = this.props.venue;
+    } else
     if(  this.props.venue ){
       var venueVal = JSON.stringify(this.props.venue);
       name = JSON.parse( venueVal ).name;
