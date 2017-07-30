@@ -37,7 +37,6 @@ class Options extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //latitude : "40.7128",longitude : "-74.0059",
       location: null,
       errorMessage: null,
       foodTimer : null,drinksTimer : null,cafeTimer : null,randomTimer : null,
@@ -45,6 +44,80 @@ class Options extends React.Component {
     };
     setInterval(clearCache, CACHE_CLEAR_MINS * 60 * 1000);
     that = this;
+    watchId = (null: ?number)
+  }
+
+  componentWillMount() {
+    console.log( "Mounting options component...");
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      this._getLocationAsync();
+    }
+  }
+
+  _getLocationAsync = async () => {
+    console.log( "Attempting to get user location...");
+    let { status } = await Permissions.askAsync(Permissions.LOCATION)
+    let counter = 0
+    if (status === 'granted') {
+      this.watchId = Location.watchPositionAsync({
+        enableHighAccuracy: false,
+        distanceInterval: 100,
+        timeInterval: 60000
+      }, newLoc => {
+        this.setState({ location:newLoc });
+        console.log('Options Current Location = ', JSON.stringify(newLoc))
+        {this.sendMetrics( newLoc );}
+        counter++
+      })
+    } else {
+      console.log('Error in getLocationAsync: Permission to access location was denied')
+    }
+  };
+
+  componentWillUnmount() {
+     Alert.alert('Component unmounting!')
+     this.watchId.remove()
+  }
+
+  sendMetrics(location){
+    var latitude = null;
+    var longitude = null;
+    if( location ){
+      latitude = location.coords.latitude;
+      longitude = location.coords.longitude;
+    }
+    var os = Platform.OS;
+    var osVersion = null;
+    var date = new Date();
+    var offset = date.getTimezoneOffset();
+    if( os == "Android" ){
+      osVersion = Platform.Version;
+    }
+    console.log( "User info ==> Latitude  = " + latitude + ", longitude = " + longitude + ", os = " + os + ", osVersion = " + osVersion + ", date = " + date + ", offset = " + offset );
+    {this.makePostRequest(baseURL+"metrics", os,osVersion,latitude,longitude,date,offset)}
+  }
+
+  makePostRequest(url,os,osVersion,latitude,longitude,date,offset){
+    console.log( "Making request to " + url );
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        latitude : latitude,
+        longitude : longitude,
+        os: os,
+        osVersion : osVersion,
+        date : date,
+        offset :offset
+      })
+    });
   }
 
   render() {
@@ -312,9 +385,9 @@ class Options extends React.Component {
   }
 
   getLatitude=()=>{
-      if( this.props.location && this.props.location.coords.latitude ){
-        console.log( "Getting actual user latitude - " + this.props.location.coords.latitude );
-        return this.props.location.coords.latitude;
+      if( this.state.location && this.state.location.coords.latitude ){
+        console.log( "Getting actual user latitude - " + this.state.location.coords.latitude );
+        return this.state.location.coords.latitude;
       } else{
         console.log( "Getting fake user latitude - " + this.state.latitude );
         return this.state.latitude;
@@ -322,9 +395,9 @@ class Options extends React.Component {
     }
 
   getLongitude(){
-    if( this.props.location && this.props.location.coords.longitude ){
-      console.log( "Getting actual user longitude - " + this.props.location.coords.longitude );
-      return this.props.location.coords.longitude;
+    if( this.state.location && this.state.location.coords.longitude ){
+      console.log( "Getting actual user longitude - " + this.state.location.coords.longitude );
+      return this.state.location.coords.longitude;
     } else{
       console.log( "Getting fake user longitude - " + this.state.longitude );
       return this.state.longitude;
@@ -412,6 +485,7 @@ function makePostRequest(url,radius,price,latitude,longitude){
       price: price,
     })
   }).then((response)=>{
+    console.log( "Received response ");
     var resp = JSON.stringify( response);
     return resp;
   });

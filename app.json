@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "org.tnc.theone",
-      "permission" : ["ACCESS_FINE_LOCATION"]
+      "permissions" : ["ACCESS_FINE_LOCATION"]
     }
   }
 }

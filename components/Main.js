@@ -40,7 +40,7 @@ export default class ControlPanel extends React.Component {
           <Results type={this.state.type} venue={this.state.venue} message={this.state.message} resetType={this.state.resetType}/>
         </View>
         <View style={{flex: 5}}>
-          <Options menuOptions={this.props.menuOptions} retrieveVenue={this.venueCallback} resetMessage={this.resetMsg} location={this.props.location}/>
+          <Options menuOptions={this.props.menuOptions} retrieveVenue={this.venueCallback} resetMessage={this.resetMsg}/>
         </View>
       </View>
     )
