@@ -80,9 +80,11 @@ class Results extends React.Component{
       var venueVal = JSON.stringify(this.props.venue);
       name = JSON.parse( venueVal ).name;
       category = JSON.parse( venueVal ).categories[0].name;
-      address = JSON.parse( venueVal ).location.address
+      address = (JSON.parse( venueVal ).location.address &&  JSON.parse( venueVal ).location.city ) ? 
+                  (JSON.parse( venueVal ).location.address
                   + ", "
-                  + JSON.parse( venueVal ).location.city ;
+                  + JSON.parse( venueVal ).location.city )
+                  : "Open in Google Maps";
       latitude = JSON.parse( venueVal ).location.lat;
       longitude = JSON.parse( venueVal ).location.lng;
       url = url +latitude+","+longitude

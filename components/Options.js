@@ -50,6 +50,7 @@ class Options extends React.Component {
   componentWillMount() {
     console.log( "Mounting options component...");
     if (Platform.OS === 'android' && !Constants.isDevice) {
+      console.log( "Will not be requesting location params...");
       this.setState({
         errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
       });
@@ -63,8 +64,9 @@ class Options extends React.Component {
     let { status } = await Permissions.askAsync(Permissions.LOCATION)
     let counter = 0
     if (status === 'granted') {
+      console.log( "Granted permission to get user location...");
       this.watchId = Location.watchPositionAsync({
-        enableHighAccuracy: false,
+        enableHighAccuracy: true,
         distanceInterval: 100,
         timeInterval: 60000
       }, newLoc => {
@@ -121,6 +123,17 @@ class Options extends React.Component {
   }
 
   render() {
+    if (!this.state.location) {
+      return (
+        <View style={{flex: 1}}>
+          <TouchableHighlight style={styles.waitForLocation}>
+            <View style={styles.centerify}>
+              <Text style={styles.optionText }>Waiting to obtain your location...</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+      );
+    }
     return (
       <View style={{flex: 1}}>
         <TouchableHighlight underlayColor="floralwhite" style={styles.cafeButton} onPress={this.getCafeOption}>
@@ -444,16 +457,17 @@ function getVenue( response, key ){
   var body = JSON.parse(response)._bodyInit;
   if( body.includes("Bad Gateway") ){
     console.log( "Unable to make request..." );
-    return "Could not access location data..."
+    return "Unable to access location data..."
   }
   var venues = JSON.parse(body);
   var venue = null;
-  if( venues ){
+  if( venues && venues.length > 0 ){
     console.log( "Storing " + key + " venues in cache..." );
     cache[key] = venues;
     venue = getOneVenue( venues );
   } else{
     console.log( "Unable to retrieve venues for this category" );
+    return "No " +  key + " places found in this location "
   }
   return venue;
 }
@@ -485,7 +499,6 @@ function makePostRequest(url,radius,price,latitude,longitude){
       price: price,
     })
   }).then((response)=>{
-    console.log( "Received response ");
     var resp = JSON.stringify( response);
     return resp;
   });
@@ -528,6 +541,10 @@ const styles = StyleSheet.create({
   cafeButton:{
     flex: 1,
     backgroundColor: 'mediumorchid'
+  },
+  waitForLocation:{
+    flex: 1,
+    backgroundColor: 'deepskyblue'
   },
   drinksButton:{
     flex: 1,

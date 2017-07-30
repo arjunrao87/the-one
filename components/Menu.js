@@ -17,6 +17,8 @@ import Modal from 'react-native-modalbox';
 import {baseURL} from '../App';
 import {font} from '../App';
 var fontSize = (Platform.OS === 'ios') ? 20 : 14;
+//7/30/2017
+const appVersion = "1.0.0"
 
 export default class Menu extends React.Component {
 
@@ -30,7 +32,8 @@ export default class Menu extends React.Component {
       isDisabled: false,
       swipeToClose: true,
       sliderValue: 0.3,
-      text:''
+      text:'',
+      appVersion:appVersion
     };
   }
 
@@ -77,8 +80,11 @@ export default class Menu extends React.Component {
           <TouchableHighlight underlayColor='lightcyan' style={{flex:1}} onPress={() => this.refs.aboutModal.open()} >
             <Text style={styles.about}>About Us</Text>
           </TouchableHighlight>
+          <View>
+            <Text style={styles.versionText}>Version {this.state.appVersion}</Text>
+          </View>
         </View>
-        <View style={{flex:2, backgroundColor:'ivory'}}>
+        <View style={{flex:1, backgroundColor:'ivory'}}>
         </View>
         <Modal style={[styles.feedbackModal]} onClosed={()=>this.setState({text:''})} position={"center"} ref={"feedbackModal"} isDisabled={this.state.isDisabled}>
           <TextInput
@@ -146,6 +152,14 @@ const styles = StyleSheet.create({
     padding:15,
     marginTop: 10,
     paddingBottom:30
+  },
+  versionText :{
+    fontSize: fontSize/2,
+    textAlign: 'center',
+    fontFamily: font,
+    padding:15,
+    marginTop: 10,
+    paddingBottom:30,
   },
   feedbackText :{
     height: 250,
