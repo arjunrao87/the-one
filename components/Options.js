@@ -10,6 +10,10 @@ import {
 import {baseURL} from '../App';
 import {font} from '../App';
 import {Permissions,Location,Constants} from 'expo';
+import DeviceInfo from 'react-native-device-info';
+import {sendGoogleAnalytics} from '../App'
+
+var ga = this.ga = null;
 
 var timer = require('react-native-timer');
 var cache = {};
@@ -99,6 +103,7 @@ class Options extends React.Component {
     if( os == "Android" ){
       osVersion = Platform.Version;
     }
+    sendGoogleAnalytics( "Options" );
     console.log( "User info ==> Latitude  = " + latitude + ", longitude = " + longitude + ", os = " + os + ", osVersion = " + osVersion + ", date = " + date + ", offset = " + offset );
     {this.makePostRequest(baseURL+"metrics", os,osVersion,latitude,longitude,date,offset)}
   }

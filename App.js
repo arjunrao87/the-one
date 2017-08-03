@@ -9,9 +9,16 @@ import {
 import Header from './components/Header';
 import {Permissions,Location,Constants} from 'expo';
 import { Font } from 'expo';
+import {
+  Analytics,
+  Hits as GAHits,
+  Experiment as GAExperiment
+} from 'react-native-google-analytics';
 
 var font = (Platform.OS === 'ios') ? "Iowan Old Style" : "space-mono"
 var baseURL = "http://104.236.66.151:80/"
+const appVersion = "1.0.0";
+var clientId;
 
 export default class App extends React.Component {
 
@@ -22,6 +29,7 @@ export default class App extends React.Component {
 
   componentWillMount() {
     this.loadFonts();
+    clientId = Math.random(0,100000);
   }
 
   loadFonts = async() => {
@@ -41,6 +49,16 @@ export default class App extends React.Component {
       </View>
     );
   }
+}
+
+exports.sendGoogleAnalytics = function( page ){
+  ga = new Analytics('UA-103808681-1', clientId, 1, "fakeDeviceAgent");
+  var screenView = new GAHits.ScreenView(
+    'The One',
+    page,
+    appVersion
+  );
+  ga.send(screenView);
 }
 
 export {baseURL,font};

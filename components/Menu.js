@@ -16,6 +16,8 @@ import {
 import Modal from 'react-native-modalbox';
 import {baseURL} from '../App';
 import {font} from '../App';
+import {sendGoogleAnalytics} from '../App'
+
 var fontSize = (Platform.OS === 'ios') ? 20 : 14;
 //7/30/2017
 const appVersion = "1.0.0"
@@ -35,6 +37,10 @@ export default class Menu extends React.Component {
       text:'',
       appVersion:appVersion
     };
+  }
+
+  componentWillMount(){
+    sendGoogleAnalytics( "Menu" );
   }
 
   render() {
