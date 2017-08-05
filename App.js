@@ -17,7 +17,7 @@ import {
 
 var font = (Platform.OS === 'ios') ? "Iowan Old Style" : "space-mono"
 var baseURL = "http://104.236.66.151:80/"
-const appVersion = "1.0.0";
+const appVersion = "1.1.0";
 var clientId;
 
 export default class App extends React.Component {
