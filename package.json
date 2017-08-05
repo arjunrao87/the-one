@@ -1,11 +1,11 @@
 {
-  "name": "decision-maker",
+  "name": "the-one",
   "version": "0.0.0",
-  "description": "Decision Maker",
+  "description": "The One",
   "author": "Arjun Rao",
   "main": "node_modules/expo/AppEntry.js",
   "license": "MIT",
-  "repository": "https://github.com/arjunrao87/decision-maker.git",
+  "repository": "https://github.com/arjunrao87/the-one.git",
   "dependencies": {
     "expo": "^19.0.0",
     "react": "16.0.0-alpha.12",

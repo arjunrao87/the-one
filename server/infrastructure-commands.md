@@ -44,17 +44,17 @@
 
 ## Building ( Run from server/ )
 
-- docker build -t arjunrao87/decision-maker-server .
+- docker build -t arjunrao87/the-one-server .
 
 ## Running the container
 
-- docker run -p 8080:8080 -d arjunrao87/decision-maker-server
+- docker run -p 8080:8080 -d arjunrao87/the-one-server
 
 ## Tagging and pushing image to Docker Hub
 
-- docker tag arjunrao87/decision-maker-server arjunrao87/decision-maker-server
+- docker tag arjunrao87/the-one-server arjunrao87/the-one-server
 
-- docker push arjunrao87/decision-maker-server
+- docker push arjunrao87/the-one-server
 
 ## Checking docker container status
 
