@@ -2,10 +2,10 @@
   "expo": {
     "name": "The One",
     "description": "Makes picking places to go to so easy!",
-    "slug": "the-one",
+    "slug": "decision-maker",
     "privacy": "public",
     "sdkVersion": "19.0.0",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "icon": "./assets/icons/app.png",
@@ -22,7 +22,8 @@
     },
     "android": {
       "package": "org.tnc.theone",
-      "permissions" : ["ACCESS_FINE_LOCATION"]
+      "permissions" : ["ACCESS_FINE_LOCATION"],
+      "versionCode": 2
     }
   }
 }
