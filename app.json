@@ -5,7 +5,7 @@
     "slug": "decision-maker",
     "privacy": "public",
     "sdkVersion": "19.0.0",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "icon": "./assets/icons/app.png",
@@ -22,8 +22,8 @@
     },
     "android": {
       "package": "org.tnc.theone",
-      "permissions" : ["ACCESS_FINE_LOCATION","WAKE_LOCK"],
-      "versionCode": 3
+      "permissions" : ["ACCESS_FINE_LOCATION","WAKE_LOCK","com.google.android.c2dm.permission.RECEIVE"],
+      "versionCode": 4
     }
   }
 }
